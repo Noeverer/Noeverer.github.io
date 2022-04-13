@@ -6,17 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://bigliu.me">
-  <title>Problem Encounted in Blogging | Ante Liu</title>
+  <title>Ante Liu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="理智,感性,AB型,codinginging">
+  <meta name="description" content="1144.Decrease Elements To Make Array ZigzagGiven an array nums of integers, a move consists of choosing any element and decreasing it by 1. An array A is a zigzag array if either:  Every even-indexed">
+<meta name="keywords" content="理智,感性,AB型,codinginging">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Problem Encounted in Blogging">
-<meta property="og:url" content="http://bigliu.me/Problem-Encounted-in-Blogging/index.html">
+<meta property="og:title" content="Ante Liu">
+<meta property="og:url" content="http://bigliu.me/code/leetcode/1144_Decrease Elements To Make Array Zigzag.html">
 <meta property="og:site_name" content="Ante Liu">
+<meta property="og:description" content="1144.Decrease Elements To Make Array ZigzagGiven an array nums of integers, a move consists of choosing any element and decreasing it by 1. An array A is a zigzag array if either:  Every even-indexed">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-05-05T04:48:57.372Z">
+<meta property="og:image" content="http://bigliu.me/images/1144.png">
+<meta property="og:updated_time" content="2019-08-04T06:31:44.617Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Problem Encounted in Blogging">
+<meta name="twitter:title" content="Ante Liu">
+<meta name="twitter:description" content="1144.Decrease Elements To Make Array ZigzagGiven an array nums of integers, a move consists of choosing any element and decreasing it by 1. An array A is a zigzag array if either:  Every even-indexed">
+<meta name="twitter:image" content="http://bigliu.me/images/1144.png">
   
     <link rel="alternative" href="/atom.xml" title="Ante Liu" type="application/atom+xml">
   
@@ -171,24 +176,28 @@
             <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Problem Encounted in Blogging
-    </h1>
-  
-
-        
-        <a href="/Problem-Encounted-in-Blogging/index.html" class="archive-article-date">
-  	<time datetime="2019-05-05T04:48:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-05</time>
-</a>
-        
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="1144-Decrease-Elements-To-Make-Array-Zigzag"><a href="#1144-Decrease-Elements-To-Make-Array-Zigzag" class="headerlink" title="1144.Decrease Elements To Make Array Zigzag"></a>1144.Decrease Elements To Make Array Zigzag</h1><p>Given an array <code>nums</code> of integers, a <em>move</em> consists of choosing any element and <strong>decreasing it by 1</strong>.</p>
+<p>An array <code>A</code> is a <em>zigzag array</em> if either:</p>
+<ul>
+<li>Every even-indexed element is greater than adjacent elements, ie. <code>A[0] &gt; A[1] &lt; A[2] &gt; A[3] &lt; A[4] &gt; ...</code></li>
+<li>OR, every odd-indexed element is greater than adjacent elements, ie. <code>A[0] &lt; A[1] &gt; A[2] &lt; A[3] &gt; A[4] &lt; ...</code></li>
+</ul>
+<p>Return the minimum number of moves to transform the given array <code>nums</code> into a zigzag array.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [1,2,3]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: We can decrease 2 to 0 or 3 to 1.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [9,6,1,6,2]</span><br><span class="line">Output: 4</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">movesToMakeZigzag</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="string">'''题意理解错误</span></span><br><span class="line"><span class="string">        我一开始的理解是以为理解一次操作（就是比如2 to 0）代表两次的moves</span></span><br><span class="line"><span class="string">        这样的话我的思路就变成一个寻找'''</span></span><br><span class="line">        <span class="comment"># def peak(a,b,c):</span></span><br><span class="line">        <span class="comment">#     if a &lt; b and b &gt; c and a!=c:</span></span><br><span class="line">        <span class="comment">#         return 0</span></span><br><span class="line">        <span class="comment">#     else:</span></span><br><span class="line">        <span class="comment">#         return </span></span><br><span class="line">        <span class="comment"># def valley(a,b,c):</span></span><br><span class="line">        <span class="comment">#     if a &gt; b and b &lt; c and a!= c:</span></span><br><span class="line">        <span class="comment">#         return 0</span></span><br><span class="line">        <span class="comment">#     else:</span></span><br><span class="line">        <span class="comment">#         return 2</span></span><br><span class="line">        <span class="comment"># length = len(nums)</span></span><br><span class="line">        <span class="comment"># i = 0</span></span><br><span class="line">        <span class="comment"># '''even'''</span></span><br><span class="line">        <span class="comment"># while i &lt; length -2:</span></span><br><span class="line">        <span class="comment">#     p = peak(nums[i-1],nums[i],nums[i+1])</span></span><br><span class="line">        <span class="comment">#     i += 1</span></span><br><span class="line">        <span class="comment">#     v = valley(nums[i-1],nums[i],nums[i+1])</span></span><br><span class="line">        <span class="comment">#     i += 1</span></span><br><span class="line">        <span class="comment"># print(p,v,1111)</span></span><br><span class="line">        <span class="comment"># return (p+v)</span></span><br></pre></td></tr></table></figure>
+<h1 id="APPROACH-ONE"><a href="#APPROACH-ONE" class="headerlink" title="APPROACH ONE"></a>APPROACH ONE</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''copy lee215'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">movesToMakeZigzag</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">    A = [float(<span class="string">"inf"</span>)] + nums + [float(<span class="string">"inf"</span>)]</span><br><span class="line">    res = [<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">1</span>,len(A)<span class="number">-1</span>):</span><br><span class="line">    	res[i%<span class="number">2</span>] += max(<span class="number">0</span>,A[i]-min(A[i<span class="number">-1</span>],A[i+<span class="number">1</span>])+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> min(res)</span><br></pre></td></tr></table></figure>
+<h2 id="自己分析"><a href="#自己分析" class="headerlink" title="自己分析"></a>自己分析</h2><p>from your python code , i learn that</p>
+<ul>
+<li>the comparison among adjacent element and the pivot in elements</li>
+<li>how to count even and odd in a array respectively</li>
+</ul>
+<p><img src="/images/1144.png" alt="1144"></p>
+
       
 
       
@@ -259,7 +268,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1144-Decrease-Elements-To-Make-Array-Zigzag"><span class="toc-number">1.</span> <span class="toc-text">1144.Decrease Elements To Make Array Zigzag</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#APPROACH-ONE"><span class="toc-number">2.</span> <span class="toc-text">APPROACH ONE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#自己分析"><span class="toc-number">2.1.</span> <span class="toc-text">自己分析</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
