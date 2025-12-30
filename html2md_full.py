@@ -346,13 +346,17 @@ class MarkdownConverter:
 
             # 生成front matter
             tags_list = json.dumps(article['tags'], ensure_ascii=False)
+            desc = article['description'][:200] if article['description'] else ''
+            # 清理description中的特殊字符
+            desc = desc.replace('\n', ' ').replace('\r', '')
+            desc = re.sub(r'[^\w\s\u4e00-\u9fff.,;:!?-]', '', desc).strip()
 
             front_matter = f"""---
 title: {article['title']}
 date: {article['date']} 12:00:00
 tags: {tags_list}
 categories: {article['category']}
-description: {article['description']}
+description: {desc}
 ---
 """
 

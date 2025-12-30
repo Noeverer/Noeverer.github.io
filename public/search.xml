@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Hello Hexo with NexT</title>
+      <link href="/2024/01/01/hello/"/>
+      <url>/2024/01/01/hello/</url>
+      
+        <content type="html"><![CDATA[<p>欢迎使用基于 NexT 主题的 Hexo 博客！</p><h2 id="功能特性"><a href="#功能特性" class="headerlink" title="功能特性"></a>功能特性</h2><ul><li>✅ 响应式设计</li><li>✅ 代码高亮</li><li>✅ 优雅的阅读体验</li><li>✅ 丰富的配置选项</li></ul><h2 id="开始写作"><a href="#开始写作" class="headerlink" title="开始写作"></a>开始写作</h2><p>使用 <code>hexo new &quot;文章标题&quot;</code> 创建新文章。</p><h2 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h2><p>NexT 主题已配置为 Pisces 风格，包含以下菜单：</p><ul><li>🏠 首页</li><li>❤️ Chocolate（生活感悟）</li><li>💻 LeetCode（算法题解）</li><li>🐍 Python（技术文章）</li><li>🏷️ 标签</li><li>📦 归档</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> test </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> test </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>

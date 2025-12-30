@@ -1,0 +1,106 @@
+# ===============================================================
+# NexT Theme Configuration
+# ===============================================================
+
+# ---------------------------------------------------------------
+# Scheme Settings
+# ---------------------------------------------------------------
+scheme: Pisces
+
+# ---------------------------------------------------------------
+# Menu Settings
+# ---------------------------------------------------------------
+menu:
+  home: / || fa fa-home
+  chocolate: /categories/chocolate/ || fa fa-heart
+  leetcode: /categories/leetcode/ || fa fa-code
+  python: /categories/python/ || fa fa-code
+  tags: /tags/ || fa fa-tags
+  archives: /archives/ || fa fa-archive
+
+menu_settings:
+  icons: true
+  badges: false
+
+# ---------------------------------------------------------------
+# Sidebar Settings
+# ---------------------------------------------------------------
+sidebar:
+  position: left
+  display: post
+  padding: 18
+  offset: 12
+
+# Sidebar Avatar
+avatar:
+  url: /img/monkey.jpg
+  rounded: true
+  rotated: false
+
+# Posts / Categories / Tags in sidebar.
+site_state: true
+
+# Social Links
+social:
+  GitHub: https://github.com/Noeverer || fab fa-github
+  E-Mail: mailto:robotliu327@gmail.com || fa fa-envelope
+
+social_icons:
+  enable: true
+  icons_only: false
+  transition: false
+
+# Table of Contents
+toc:
+  enable: true
+  number: true
+  wrap: false
+  expand_all: false
+  max_depth: 6
+
+# ---------------------------------------------------------------
+# Post Settings
+# ---------------------------------------------------------------
+
+# Automatically excerpt (not recommend).
+auto_excerpt:
+  enable: false
+  length: 150
+
+# Code Highlight theme
+codeblock:
+  theme:
+    light: default
+    dark: default
+  copy_btn: true
+
+# ---------------------------------------------------------------
+# Footer Settings
+# ---------------------------------------------------------------
+footer:
+  since: 2019
+  icon:
+    name: fa fa-user
+    animated: false
+    color: "#808080"
+  powered:
+    enable: false
+
+# ---------------------------------------------------------------
+# Animation Settings
+# ---------------------------------------------------------------
+motion:
+  enable: true
+  async: false
+  transition:
+    post_block: fadeIn
+    post_header: fadeInDown
+    post_body: fadeInDown
+    coll_header: fadeInLeft
+    sidebar: fadeInUp
+
+# ---------------------------------------------------------------
+# Font Settings
+# ---------------------------------------------------------------
+font:
+  enable: false
