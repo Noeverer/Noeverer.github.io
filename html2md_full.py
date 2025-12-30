@@ -57,13 +57,12 @@ class MarkdownConverter:
             # 从文件名提取标题（如果没有标题）
             if not title or title == 'Ante Liu':
                 filename = Path(filepath).stem
-                # 移除一些常见的后缀
+                # 移除一些常见的后缀和前缀
                 filename = re.sub(r'^\d+[\.\-_]', '', filename)
                 title = filename.replace('-', ' ').replace('_', ' ')
                 title = ' '.join(word.capitalize() for word in title.split())
 
             # 根据路径推断分类和标签
-            path_parts = str(filepath).lower()
             category, tags = self.infer_category_and_tags(filepath)
 
             # 提取文章内容
@@ -72,20 +71,23 @@ class MarkdownConverter:
             # 跳过空文件和导航页面
             skip_keywords = ['toc.html', 'readme.html', 'index.html', 'hello-world.html']
             if any(k in str(filepath).lower() for k in skip_keywords):
-                print(f"- 跳过导航页面: {Path(filepath).name}")
                 return None
 
-            # 检查是否已转换过
-            file_hash = f"{Path(filepath).stem}-{date}"
+            # 跳过life目录下的重复文件
+            if '/life/' in str(filepath):
+                return None
+
+            # 检查是否已转换过（使用文件路径作为唯一标识）
+            file_hash = f"{Path(filepath).stem}-{category}"
             if file_hash in self.converted_files:
                 return None
             self.converted_files.add(file_hash)
 
             # 如果提取到了内容
-            if title and (article_content or description):
+            if title:
                 article_info = {
                     'title': title,
-                    'date': date or '2019-01-01',
+                    'date': date or '2019-08-01',
                     'tags': tags,
                     'category': category,
                     'description': description[:200] if description else '',
@@ -93,11 +95,9 @@ class MarkdownConverter:
                     'source_file': filepath
                 }
                 self.articles.append(article_info)
-                print(f"✓ [{category}] {title}")
                 return article_info
 
         except Exception as e:
-            print(f"✗ 解析失败 {filepath}: {e}")
             return None
 
     def infer_category_and_tags(self, filepath):
@@ -150,7 +150,7 @@ class MarkdownConverter:
             year, month, day = date_match.groups()
             return f"{year}-{month}-{day}"
 
-        # 尝试匹配年份，如 2015y, 2016autumn
+        # 尝试匹配年份，如 2015y
         year_match = re.search(r'/(\d{4})y?\.html', url)
         if year_match:
             year = year_match.group(1)
@@ -176,13 +176,18 @@ class MarkdownConverter:
             month = "03" if season.lower() == 'spring' else "09"
             return f"{year}-{month}-01"
 
+        # 匹配 LeetCode 题号
+        leetcode_match = re.match(r'^(\d+)_', filename)
+        if leetcode_match:
+            return '2019-08-01'
+
         # 标准日期格式
         date_match = re.search(r'/(\d{4})/(\d{2})/(\d{2})', path_str)
         if date_match:
             year, month, day = date_match.groups()
             return f"{year}-{month}-{day}"
 
-        # 默认返回2019年（根据文件更新时间推测）
+        # 默认返回2019年8月
         return '2019-08-01'
 
     def extract_content_from_html(self, soup, filepath):
@@ -302,10 +307,6 @@ class MarkdownConverter:
             leetcode_pattern = re.compile(r'(\d+\.\s*[A-Z][^.]+)')
             desc = leetcode_pattern.sub(r'\n\n## \1\n', desc)
 
-            # 尝试识别代码相关内容
-            if 'list[' in desc or 'append' in desc:
-                return f"\n## Python数据操作\n\n{desc}\n"
-
             return desc
 
         # 对于chocolate等生活记录，保持原有换行
@@ -375,49 +376,50 @@ def main():
     # 查找所有HTML文件
     html_files = []
 
-    # 1. 标准格式的Hexo文章（包含日期路径）
-    print("\n[1/5] 查找标准Hexo文章...")
-    for filepath in base_dir.rglob('index.html'):
-        path_str = str(filepath)
-        # 跳过归档页面、首页等非文章页面
-        if any(skip in path_str for skip in [
-            'archives/', 'tags/', 'categories/', 'README.html',
-            'TOC.html', 'fonts/', 'assets/', 'css/', 'js/', 'public/'
-        ]):
-            continue
-
-        # 只处理包含日期路径的文件（文章）
-        if re.search(r'/(\d{4})/(\d{2})', path_str):
-            html_files.append(filepath)
-
-    # 2. chocolate目录下的HTML文件
-    print("[2/5] 查找chocolate目录...")
+    # 1. chocolate目录下的HTML文件
+    print("\n[1/6] 查找chocolate目录...")
     chocolate_dir = base_dir / 'chocolate'
     if chocolate_dir.exists():
         for filepath in chocolate_dir.glob('*.html'):
             # 跳过README和TOC
-            if filepath.name not in ['README.html', 'TOC.html']:
+            if filepath.name not in ['README.html', 'TOC.html', '使用gitpress总结.html']:
                 html_files.append(filepath)
 
-    # 3. code目录下的HTML文件
-    print("[3/5] 查找code目录...")
+    # 2. code目录下的HTML文件（跳过life下的重复）
+    print("[2/6] 查找code目录...")
     code_dir = base_dir / 'code'
     if code_dir.exists():
         for filepath in code_dir.rglob('*.html'):
             if 'node_modules' not in str(filepath):
                 html_files.append(filepath)
 
+    # 3. Fun_thing目录
+    print("[3/6] 查找Fun_thing目录...")
+    fun_dir = base_dir / 'Fun_thing'
+    if fun_dir.exists():
+        for filepath in fun_dir.glob('*.html'):
+            if filepath.name not in ['README.html', 'TOC.html']:
+                html_files.append(filepath)
+
     # 4. work目录
-    print("[4/5] 查找work目录...")
-    for category in ['work', 'life', 'love', 'Fun_thing', 'Problem-Encounted-in-Blogging']:
+    print("[4/6] 查找work目录...")
+    work_dir = base_dir / 'work'
+    if work_dir.exists():
+        for filepath in work_dir.rglob('*.html'):
+            if filepath.name not in ['README.html', 'TOC.html', 'index.html']:
+                html_files.append(filepath)
+
+    # 5. life和love目录
+    print("[5/6] 查找life/love目录...")
+    for category in ['life', 'love', 'Problem-Encounted-in-Blogging']:
         category_dir = base_dir / category
-        if category_dir.exists():
+        if category_dir.exists() and 'life/chocolate' not in str(category_dir):
             for filepath in category_dir.rglob('*.html'):
                 if filepath.name not in ['README.html', 'TOC.html', 'index.html']:
                     html_files.append(filepath)
 
-    # 5. 根目录的独立HTML文件
-    print("[5/5] 查找根目录独立文件...")
+    # 6. 根目录的独立HTML文件
+    print("[6/6] 查找根目录独立文件...")
     for filepath in base_dir.glob('*.html'):
         if filepath.name not in ['index.html', 'README.html', 'TOC.html', 'hello-world.html']:
             html_files.append(filepath)
@@ -432,7 +434,7 @@ def main():
         converter.parse_html_file(html_file)
 
     print("\n" + "=" * 60)
-    print(f"共解析出 {len(converter.articles)} 篇文章")
+    print(f"共解析出 {len(converter.articles)} 篇新文章")
     print("=" * 60)
 
     # 统计分类
