@@ -1,0 +1,28 @@
+# Hexo
+node_modules/
+db.json
+*.log
+public/
+.deploy*/
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 临时文件
+*.tmp
+html2md.log
+
+# 已编译的HTML文件（不需要提交到源码仓库）
+*.html
+*.css
+*.js
+!public/
+
+# 但保留这些目录结构
+!public/.gitkeep
+!source/
+!source/_posts/
