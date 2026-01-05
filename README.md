@@ -203,6 +203,13 @@ hexo deploy
    - 将生成的文件推送到 `publish` 分支
 4. GitHub Pages 从 `publish` 分支自动部署网站
 
+### GitHub Actions 工作流文件
+本项目配置了多个工作流文件以确保部署流程的稳定性：
+
+- `.github/workflows/deploy.yml`：主要的构建和部署工作流程
+- `.github/workflows/build-and-deploy.yml`：备用构建部署工作流程，修复了 GitHub Pages API 相关错误
+- `.github/workflows/configure-pages.yml`：GitHub Pages 配置工作流程（可选）
+
 ### 配置 GitHub Pages
 在仓库设置中，将 GitHub Pages 源设置为 `publish` 分支。
 
