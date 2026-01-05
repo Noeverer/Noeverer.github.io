@@ -1,10 +1,13 @@
-name: Hexo Blog Build and Deploy
+name: Build and Deploy Hexo Site
 
 on:
   push:
     branches:
       - content
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -16,6 +19,7 @@ jobs:
         with:
           submodules: true
           fetch-depth: 0
+          ref: content
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -40,19 +44,24 @@ jobs:
           hexo generate
 
       - name: Deploy to publish branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Create a new branch with generated files
-          git clone "https://github.com/${{ github.repository }}.git" deploy-branch --depth=1
-          cd deploy-branch
+          # Create a temporary directory for the publish branch
+          mkdir -p ../publish-branch
+          cd ../publish-branch
+          
+          # Clone the repository and checkout the publish branch
+          git clone "https://github.com/${{ github.repository }}.git" --branch publish . || git clone "https://github.com/${{ github.repository }}.git" .
           git checkout publish || git checkout -b publish
           
-          # Copy generated files
-          rm -rf ./*
-          cp -r ../public/* ./
+          # Clear the directory and copy new files
+          find . -not -name '.git' -not -name '.' -not -name '..' -delete
+          cp -r ../${{ github.event.repository.name }}/public/* ./
           
           # Add and commit changes
           git add .
-          git commit -m "Auto deploy: $(date)" --allow-empty
-          git push origin publish
+          if ! git diff --cached --quiet; then
+            git commit -m "Auto deploy: $(date)"
+            git push origin publish
+          else
+            echo "No changes to commit"
+          fi

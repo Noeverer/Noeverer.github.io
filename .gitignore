@@ -1,28 +1,54 @@
-# Hexo
+```
+# Dependencies
 node_modules/
-db.json
-*.log
-public/
-.deploy*/
-.DS_Store
 
-# IDE
+# Editors
 .vscode/
-.idea/
-*.swp
-*.swo
 
-# 临时文件
-*.tmp
-html2md.log
+# Environment
+.env
+.env.local
+.env.*
 
-# 已编译的HTML文件（不需要提交到源码仓库）
-*.html
-*.css
-*.js
-!public/
+# Logs
+*.log
 
-# 但保留这些目录结构
-!public/.gitkeep
-!source/
-!source/_posts/
+# Build artifacts
+dist/
+build/
+*.pyc
+__pycache__/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Compressed files
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.zst
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
+*.Z
+*.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
+```
