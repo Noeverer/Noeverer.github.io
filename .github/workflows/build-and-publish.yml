@@ -1,0 +1,66 @@
+name: Build and Publish Hexo Site
+
+on:
+  push:
+    branches:
+      - content
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout content branch
+        uses: actions/checkout@v4
+        with:
+          ref: content
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Hexo CLI
+        run: npm install -g hexo-cli
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Clean and Generate static files
+        run: |
+          hexo clean
+          hexo generate
+
+      - name: Checkout publish branch
+        run: |
+          git fetch origin publish || git checkout -b publish
+          git checkout publish || git checkout -b publish
+
+      - name: Remove old files (except .git)
+        run: |
+          ls -A | grep -v '^\.git$' | xargs rm -rf || true
+
+      - name: Copy generated files
+        run: cp -r public/* .
+
+      - name: Commit and push to publish branch
+        run: |
+          git add .
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-build from content branch [skip ci]"
+            git push origin publish
+          fi

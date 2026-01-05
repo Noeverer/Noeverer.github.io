@@ -3,7 +3,7 @@ name: Hexo Blog CI/CD
 on:
   push:
     branches:
-      - main
+      - content
   workflow_dispatch:
 
 jobs:
@@ -44,5 +44,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          publish_branch: gh-pages
+          publish_branch: publish
           force_orphan: true
