@@ -2,6 +2,114 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://noeverer.github.io/about/index.html</loc>
+    
+    <lastmod>2026-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/2017/09/01/2017-09-01-2017autumn/</loc>
+    
+    <lastmod>2026-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/2018/03/01/2018-03-01-2018spring/</loc>
+    
+    <lastmod>2026-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/2019/03/01/2019-03-01-2019spring/</loc>
+    
+    <lastmod>2026-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/2016/09/01/2016-09-01-2016autumn/</loc>
+    
+    <lastmod>2026-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/2017/03/01/2017-03-01-2017spring/</loc>
+    
+    <lastmod>2026-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/2015/01/01/2015-01-01-2015y/</loc>
+    
+    <lastmod>2026-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/2016/03/01/2016-03-01-2016spring/</loc>
+    
+    <lastmod>2026-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/2019/08/01/2019-08-01-%E7%AE%97%E6%B3%95/</loc>
+    
+    <lastmod>2026-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/2019/08/01/2019-08-01-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
+    
+    <lastmod>2026-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/2018/09/01/2018-09-01-2018autumn/</loc>
+    
+    <lastmod>2026-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/2019/08/01/2019-08-01-Python%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E7%9A%84%E6%80%BB%E7%BB%93/</loc>
+    
+    <lastmod>2026-01-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://noeverer.github.io/2024/01/01/hello/</loc>
     
     <lastmod>2026-01-05</lastmod>
@@ -13,15 +121,64 @@
 
   <url>
     <loc>https://noeverer.github.io/</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
+    <loc>https://noeverer.github.io/tags/chocolate/</loc>
+    <lastmod>2026-01-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/tags/life/</loc>
+    <lastmod>2026-01-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/tags/%E6%84%9F%E6%82%9F/</loc>
+    <lastmod>2026-01-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/tags/python/</loc>
+    <lastmod>2026-01-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/tags/code/</loc>
+    <lastmod>2026-01-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://noeverer.github.io/tags/test/</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/tags/mindmap/</loc>
+    <lastmod>2026-01-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/tags/study/</loc>
+    <lastmod>2026-01-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -29,8 +186,29 @@
 
   
   <url>
+    <loc>https://noeverer.github.io/categories/chocolate/</loc>
+    <lastmod>2026-01-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/categories/python/</loc>
+    <lastmod>2026-01-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://noeverer.github.io/categories/test/</loc>
-    <lastmod>2026-01-05</lastmod>
+    <lastmod>2026-01-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://noeverer.github.io/categories/mindmap/</loc>
+    <lastmod>2026-01-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
