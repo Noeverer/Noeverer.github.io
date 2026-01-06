@@ -1,0 +1,75 @@
+name: Hexo Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm install hexo-cli -g
+          npm install
+
+      - name: Install Python dependencies
+        run: |
+          pip3 install beautifulsoup4 GitPython
+
+      - name: Generate posts from HTML
+        run: |
+          if [ -f html2hexo.py ]; then
+            python3 html2hexo.py || echo "HTML conversion skipped"
+          fi
+
+      - name: Build Hexo site
+        run: |
+          hexo clean
+          hexo generate
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          cname: noeverer.github.io
+
+      - name: Create deployment tag
+        run: |
+          TAG_NAME=deploy-$(date +%Y%m%d-%H%M%S)
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git tag -a $TAG_NAME -m "Auto deploy at $(date)"
+          git push origin $TAG_NAME || echo "Tag already exists"
+
+      - name: Notify deployment
+        if: success()
+        run: |
+          echo "✅ Deployment successful!"
+          echo "Site URL: https://noeverer.github.io"
+
+      - name: Upload build logs
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-logs
+          path: |
+            html2hexo.log
+            debug.log
