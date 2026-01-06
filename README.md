@@ -1,6 +1,12 @@
 # Noeverer GitHub.io 博客项目
 
-基于 Hexo 的个人博客，使用 GitHub Actions 自动部署到 GitHub Pages。
+基于 Hexo + Butterfly 的个人博客，使用 GitHub Actions 自动部署到 GitHub Pages。
+
+## 🎨 主题
+
+- **主题**: [Butterfly](https://github.com/jerryc127/hexo-theme-butterfly) v5.5.3
+- **风格**: 现代卡片式布局，支持暗色模式
+- **特性**: 响应式设计、代码高亮、图片懒加载、本地搜索
 
 ## 项目结构
 
@@ -9,26 +15,12 @@ Noeverer.github.io/
 ├── .github/
 │   └── workflows/
 │       └── hexo-deploy.yml      # GitHub Actions 自动部署配置
-├── scripts/                      # 脚本文件
+├── _config.yml                   # Hexo 主配置文件
+├── _config.butterfly.yml         # Butterfly 主题配置
+├── scripts_tools_backup/         # 备份的脚本工具（避免Hexo冲突）
 │   ├── conversion/               # HTML转Markdown转换脚本
-│   │   ├── convert_html_to_md.py
-│   │   ├── convert_html_to_md_enhanced.py
-│   │   ├── html2hexo.py
-│   │   ├── html2md.py
-│   │   ├── html2md_full.py
-│   │   ├── restore_and_convert_final.py
-│   │   ├── converter_config.json
-│   │   └── publish_config.json
 │   ├── deployment/               # 部署脚本
-│   │   ├── deploy.sh
-│   │   ├── deploy_blog.sh
-│   │   ├── deploy_helper.py
-│   │   └── install.sh
 │   └── tools/                    # 工具脚本
-│       ├── distribute_posts.py
-│       ├── test_system.py
-│       ├── content.json
-│       └── db.json
 ├── source/                       # 博客源文件
 │   └── _posts/                   # Markdown 格式文章（16篇）
 ├── public/                       # Hexo 生成的静态网站
@@ -105,7 +97,8 @@ hexo generate
 如果需要将 HTML 文件转换为 Markdown 格式：
 
 ```bash
-python3 scripts/conversion/restore_and_convert_final.py
+cd scripts_tools_backup
+python3 conversion/restore_and_convert_final.py
 ```
 
 ## GitHub Actions 自动部署
