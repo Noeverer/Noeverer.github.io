@@ -1,195 +1,135 @@
-# HTML to Hexo 快速开始指南
+# 快速启动指南
 
-## 一键安装
+## GitHub Actions 自动部署已配置 ✅
+
+项目已配置 GitHub Actions，代码推送到 `master` 分支后会自动部署到 GitHub Pages。
+
+### 部署流程
+
+1. 推送代码到 master 分支
+2. GitHub Actions 自动触发
+3. 安装依赖（Node.js + Python）
+4. 运行 HTML 转换（如果需要）
+5. 生成 Hexo 静态站点
+6. 部署到 `gh-pages` 分支
+7. 发布到 https://noeverer.github.io
+
+### 监控部署状态
+
+访问 GitHub 仓库的 **Actions** 标签页查看部署状态。
+
+### 手动触发部署
+
+在 GitHub 网页上：
+1. 进入仓库的 **Actions** 页面
+2. 选择 **Hexo Deploy to GitHub Pages** workflow
+3. 点击 **Run workflow** 按钮
+
+## 本地开发
+
+### 1. 安装依赖
 
 ```bash
-bash install.sh
+npm install
+npm install hexo-cli -g
+pip3 install beautifulsoup4 GitPython
 ```
 
-安装脚本会自动：
-- 检查环境（Python3, Node.js, Git）
-- 安装Python依赖（beautifulsoup4, GitPython）
-- 安装Hexo CLI和npm依赖
-- 设置脚本权限
-- 创建必要目录
-
-## 验证安装
+### 2. 启动本地服务器
 
 ```bash
-python3 test_system.py
+hexo server
 ```
 
-运行测试脚本验证所有组件是否正常工作。
+访问: http://localhost:4000
 
-## 快速使用
-
-### 1. 转换HTML到Markdown
+### 3. 创建新文章
 
 ```bash
-python3 html2hexo.py
+hexo new "文章标题"
 ```
 
-这会：
-- 扫描所有HTML文件
-- 提取文章内容和元数据
-- 转换为Markdown格式
-- 保存到 `source/_posts/` 目录
-- 显示主题推荐
+编辑生成的 Markdown 文件位于 `source/_posts/`。
 
-### 2. 本地预览
+### 4. 生成静态文件
 
 ```bash
-python3 deploy_helper.py serve
+hexo clean
+hexo generate
 ```
 
-访问 http://localhost:4000 查看效果。
-
-### 3. 部署到GitHub Pages
+### 5. 本地预览
 
 ```bash
-# 提交更改
+hexo server
+```
+
+### 6. 提交并推送
+
+```bash
 git add .
-git commit -m "Update posts"
+git commit -m "描述"
 git push origin master
 ```
 
-推送到master后会自动触发GitHub Actions部署。
+GitHub Actions 会自动部署！
 
-## 主要功能
+## 项目结构
 
-### 命令行选项
-
-```bash
-# 完整转换
-python3 html2hexo.py
-
-# 转换指定目录
-python3 html2hexo.py --dir ./chocolate
-
-# 创建特性分支
-python3 html2hexo.py --branch chocolate
-
-# 只显示主题推荐
-python3 html2hexo.py --recommend
-
-# 设置GitHub Actions
-python3 html2hexo.py --setup
+```
+Noeverer.github.io/
+├── source/_posts/       # 博客文章（Markdown格式）
+├── scripts/             # 脚本工具
+│   ├── conversion/      # HTML转换脚本
+│   ├── deployment/     # 部署脚本
+│   └── tools/           # 辅助工具
+├── docs/                # 项目文档
+├── assets/              # 静态资源（CSS/JS）
+├── images/              # 图片资源
+├── fonts/               # 字体文件
+├── _config.yml          # Hexo配置
+└── README.md            # 项目说明
 ```
 
-### 部署辅助命令
+## 当前博客统计
 
-```bash
-# 完整设置（安装依赖+转换+构建）
-python3 deploy_helper.py setup
-
-# 只转换HTML
-python3 deploy_helper.py convert
-
-# 构建站点
-python3 deploy_helper.py build
-
-# 启动服务器
-python3 deploy_helper.py serve
-
-# 创建新文章
-python3 deploy_helper.py new --title "My Post"
-
-# 查看状态
-python3 deploy_helper.py status
-
-# 部署
-python3 deploy_helper.py deploy
-```
-
-## 项目文件说明
-
-| 文件 | 说明 |
-|------|------|
-| `html2hexo.py` | 主转换脚本 |
-| `deploy_helper.py` | 部署辅助工具 |
-| `test_system.py` | 系统测试脚本 |
-| `install.sh` | 一键安装脚本 |
-| `.github/workflows/hexo-deploy.yml` | GitHub Actions配置 |
-
-## 文档
-
-- **HTML2HEXO_README.md** - 完整使用说明
-- **BRANCH_WORKFLOW.md** - Git分支管理工作流
-- **QUICK_START.md** - 本文件
-
-## 分支管理
-
-### 创建特性分支
-
-```bash
-python3 html2hexo.py --branch chocolate
-```
-
-或手动创建：
-```bash
-git checkout -b feature/chocolate-20250105
-python3 html2hexo.py
-git add .
-git commit -m "Add chocolate posts"
-git push origin feature/chocolate-20250105
-```
-
-### 合并到主分支
-
-```bash
-git checkout master
-git merge feature/chocolate-20250105
-git push origin master
-```
-
-## 主题推荐
-
-运行转换后会自动分析内容并推荐主题：
-
-1. **NexT** (95分) - 功能最全面
-2. **Butterfly** (92分) - 美观现代
-3. **Fluid** (90分) - 简洁优雅
-
-推荐安装命令：
-```bash
-cd themes
-git clone https://github.com/next-theme/hexo-theme-next next
-```
+- **总文章数**: 17 篇
+- **Chocolate 系列**: 8 篇（生活感悟）
+- **LeetCode**: 5 篇（技术文章）
+- **Python**: 1 篇（数据操作总结）
+- **思维导图**: 2 篇（数据结构、算法）
+- **其他**: 1 篇
 
 ## 常见问题
 
-### 安装失败
+### Q: 如何修改博客主题？
+A: 编辑 `_config.yml` 文件中的 `theme` 配置项。
 
-1. 确保已安装Python3、Node.js、Git
-2. 检查网络连接
-3. 使用国内镜像：
-   ```bash
-   pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple beautifulsoup4 GitPython
-   npm config set registry https://registry.npmmirror.com
-   ```
+### Q: 如何添加自定义页面？
+A: 在 `source/` 目录下创建新的 Markdown 文件，例如 `source/about.md`。
 
-### 转换失败
+### Q: 如何添加图片？
+A: 将图片放到 `images/` 或 `img/` 目录，然后在 Markdown 中引用：
+```
+![图片描述](/images/图片名.jpg)
+```
 
-1. 查看日志：`cat html2hexo.log`
-2. 确保HTML文件编码为UTF-8
-3. 检查文件路径是否正确
+### Q: 部署失败怎么办？
+A: 查看 GitHub Actions 的日志输出，检查是否有错误信息。
 
-### 部署失败
+### Q: 如何从 HTML 转换到 Markdown？
+A: 运行转换脚本：
+```bash
+python3 scripts/conversion/restore_and_convert_final.py
+```
 
-1. 确认GitHub仓库启用了Pages
-2. 检查GITHUB_TOKEN权限
-3. 查看GitHub Actions运行日志
+## 需要帮助？
 
-## 下一步
+查看详细文档：
+- `README.md` - 完整项目说明
+- `docs/MIGRATION_GUIDE.md` - 迁移指南
+- `docs/FINAL_CONVERSION_REPORT.md` - 转换报告
 
-1. ✅ 运行安装脚本：`bash install.sh`
-2. ✅ 验证安装：`python3 test_system.py`
-3. ✅ 转换HTML：`python3 html2hexo.py`
-4. ✅ 本地预览：`python3 deploy_helper.py serve`
-5. ✅ 提交部署：`git push origin master`
+---
 
-## 获取帮助
-
-- 查看日志文件：`html2hexo.log`
-- 阅读完整文档：`HTML2HEXO_README.md`
-- 分支管理：`BRANCH_WORKFLOW.md`
+🌐 博客地址: https://noeverer.github.io
