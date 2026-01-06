@@ -34,8 +34,8 @@ jobs:
 
       - name: Generate posts from HTML
         run: |
-          if [ -f html2hexo.py ]; then
-            python3 html2hexo.py || echo "HTML conversion skipped"
+          if [ -f scripts/conversion/html2hexo.py ]; then
+            python3 scripts/conversion/html2hexo.py || echo "HTML conversion skipped"
           fi
 
       - name: Build Hexo site

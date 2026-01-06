@@ -1,5 +1,33 @@
-```
+# Dependencies
+node_modules/
+
+# Hexo
+public/
+db.json
+*.log
+
+# Python
 __pycache__/
 *.pyc
-node_modules/
-```
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+main.*.css
+main.*.js
+mobile.*.js
+slider.*.js
+
+# Temporary files
+*.tmp
+*.bak
