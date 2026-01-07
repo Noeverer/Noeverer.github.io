@@ -31,23 +31,25 @@ jobs:
           hexo clean
           hexo generate
 
+      - name: Verify build output
+        run: |
+          echo "Checking if index.html exists..."
+          ls -la public/
+          if [ ! -f "public/index.html" ]; then
+            echo "Error: index.html not found!"
+            exit 1
+          fi
+          echo "✅ Build successful, index.html exists"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
+          force_orphan: true
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-
-      - name: Create deployment tag
-        if: success()
-        run: |
-          TAG_NAME=deploy-$(date +%Y%m%d-%H%M%S)
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag -a $TAG_NAME -m "Auto deploy at $(date)"
-          git push origin $TAG_NAME || echo "Tag already exists"
 
       - name: Deployment summary
         if: success()
