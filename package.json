@@ -1,19 +1,19 @@
 {
   "name": "hexo-blog",
   "version": "1.0.0",
-  "description": "Ante Liu's Personal Blog",
+  "description": "Ante Liu's Personal Blog - Auto-deployed via GitHub Actions",
   "main": "index.js",
   "scripts": {
     "build": "hexo generate",
     "clean": "hexo clean",
-    "deploy": "hexo deploy",
     "server": "hexo server",
-    "new": "hexo new",
-    "migrate": "python3 html2md.py"
+    "new": "hexo new"
   },
   "keywords": [
     "hexo",
-    "blog"
+    "blog",
+    "github-actions",
+    "auto-deploy"
   ],
   "author": "Ante Liu",
   "license": "MIT",

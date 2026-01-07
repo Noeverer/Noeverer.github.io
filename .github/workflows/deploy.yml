@@ -1,9 +1,8 @@
-name: Hexo Blog Build and Deploy
+name: Deploy Blog
 
 on:
   push:
-    branches:
-      - content
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -14,45 +13,44 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: true
           fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
           cache: 'npm'
 
-      - name: Install Hexo CLI
-        run: npm install -g hexo-cli
-
       - name: Install dependencies
-        run: npm ci
-
-      - name: Setup Git
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          npm install hexo-cli -g
+          npm install
 
-      - name: Generate static files
+      - name: Build site
         run: |
           hexo clean
           hexo generate
 
-      - name: Deploy to publish branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Create deployment tag
+        if: success()
         run: |
-          # Create a new branch with generated files
-          git clone "https://github.com/${{ github.repository }}.git" deploy-branch --depth=1
-          cd deploy-branch
-          git checkout publish || git checkout -b publish
-          
-          # Copy generated files
-          rm -rf ./*
-          cp -r ../public/* ./
-          
-          # Add and commit changes
-          git add .
-          git commit -m "Auto deploy: $(date)" --allow-empty
-          git push origin publish
+          TAG_NAME=deploy-$(date +%Y%m%d-%H%M%S)
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a $TAG_NAME -m "Auto deploy at $(date)"
+          git push origin $TAG_NAME || echo "Tag already exists"
+
+      - name: Deployment summary
+        if: success()
+        run: |
+          echo "✅ Deployment successful!"
+          echo "🌐 https://noeverer.github.io"
