@@ -33,7 +33,7 @@ type: about
 ## 联系方式
 
 - GitHub: [Noeverer](https://github.com/Noeverer)
-- Email: your-email@example.com
+- Email: robotliu0327@gmail.com
 
 ---
 

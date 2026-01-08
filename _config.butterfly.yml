@@ -51,7 +51,7 @@ font:
 
 # 图片
 avatar:
-  img: /img/monkey.jpg
+  img: img/monkey.jpg
   effect: false
 
 # 顶部图
