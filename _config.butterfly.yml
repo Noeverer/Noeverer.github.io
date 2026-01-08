@@ -57,6 +57,7 @@ avatar:
 # 顶部图
 index_site_info_top: null
 default_top_img: linear-gradient(20deg, #0062be, #925696, #cc426e, #f43059)
+index_img: img/monkey.jpg
 
 # 文章元数据
 post_meta:
