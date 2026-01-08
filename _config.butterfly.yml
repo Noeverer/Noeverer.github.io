@@ -32,7 +32,7 @@ highlight_theme: mac light
 # 社交图标
 social:
   fab fa-github: https://github.com/Noeverer || Github
-  fas fa-envelope: mailto:your-email@example.com || Email
+  fas fa-envelope: mailto:robotliu0327@gmail.com || Email
 
 # 主题色
 theme_color:
@@ -55,9 +55,13 @@ avatar:
   effect: false
 
 # 顶部图
-index_site_info_top: null
+# 禁用所有顶部图片
+disable_top_img: false
+# 如果页面没有设置横幅，将显示 default_top_img
 default_top_img: linear-gradient(20deg, #0062be, #925696, #cc426e, #f43059)
-index_img: img/monkey.jpg
+# 首页横幅图片
+index_img: img/tree.jpg
+index_site_info_top: null
 
 # 文章元数据
 post_meta:
