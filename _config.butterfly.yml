@@ -51,7 +51,7 @@ font:
 
 # 图片
 avatar:
-  img: img/tree.jpg
+  img: /source/img/tree.jpg
   effect: false
 
 # 顶部图
@@ -60,7 +60,7 @@ disable_top_img: false
 # 如果页面没有设置横幅，将显示 default_top_img
 default_top_img: linear-gradient(20deg, #0062be, #925696, #cc426e, #f43059)
 # 首页横幅图片
-index_img: img/tree.jpg
+index_img: /source/img/tree.jpg
 index_site_info_top: null
 
 # 文章元数据
