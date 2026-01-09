@@ -7,7 +7,10 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "server": "hexo server",
-    "new": "hexo new"
+    "new": "hexo new",
+    "verify": "bash scripts/verify-blog.sh",
+    "test-build": "bash scripts/local-test-build.sh",
+    "dev": "hexo clean && hexo generate && hexo server"
   },
   "keywords": [
     "hexo",
@@ -18,11 +21,11 @@
   "author": "Ante Liu",
   "license": "MIT",
   "hexo": {
-    "version": "7.2.0"
+    "version": "7.3.0"
   },
   "dependencies": {
     "@babel/helper-string-parser": "^7.27.1",
-    "hexo": "^7.2.0",
+    "hexo": "^7.3.0",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",

@@ -4,6 +4,7 @@ date: 2024-01-01 12:00:00
 tags: [test]
 categories: test
 description: 测试文章
+published: true
 ---
 
 欢迎使用基于 NexT 主题的 Hexo 博客！
