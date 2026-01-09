@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  wikijs:
+    image: ghcr.io/requarks/wiki:latest
+    container_name: wikijs
+    restart: unless-stopped
+    environment:
+      # 数据库配置
+      DB_TYPE: postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: wikijs
+      DB_PASS: wikijs_password
+      DB_NAME: wikijs
+      
+      # 站点配置
+      PORT: 3000
+      
+      # Git 仓库配置 (用于存储笔记)
+      GIT_REPOSITORY_URL: https://github.com/YOUR_USERNAME/YOUR_REPO.git
+      GIT_BRANCH: main
+      
+      # 其他配置
+      TZ: Asia/Shanghai
+    ports:
+      - "3000:3000"
+    volumes:
+      - wikijs-data:/wiki/data/repo
+      - ./config.yml:/wiki/config.yml
+    depends_on:
+      - postgres
+    networks:
+      - wikijs-network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: wikijs-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: wikijs
+      POSTGRES_PASSWORD: wikijs_password
+      POSTGRES_DB: wikijs
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - wikijs-network
+
+volumes:
+  wikijs-data:
+    driver: local
+  postgres-data:
+    driver: local
+
+networks:
+  wikijs-network:
+    driver: bridge
