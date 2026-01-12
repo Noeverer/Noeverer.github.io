@@ -1,14 +1,23 @@
 ---
-status: planned
+status: complete
 created: '2026-01-12'
-tags: [validation, published-field, markdown]
+tags:
+  - validation
+  - published-field
+  - markdown
 priority: high
 created_at: '2026-01-12T02:55:00.000Z'
+updated_at: '2026-01-12T07:36:30.920Z'
+completed_at: '2026-01-12T07:36:30.920Z'
+completed: '2026-01-12'
+transitions:
+  - status: complete
+    at: '2026-01-12T07:36:30.920Z'
 ---
 
 # Published Field Validation
 
-> **Status**: 📅 Planned · **Priority**: High · **Created**: 2026-01-12
+> **Status**: ✅ Complete · **Priority**: High · **Created**: 2026-01-12 · **Tags**: validation, published-field, markdown
 
 ## Overview
 
