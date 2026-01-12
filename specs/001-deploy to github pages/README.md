@@ -1,14 +1,23 @@
 ---
-status: completed
+status: complete
 created: '2026-01-12'
-tags: [deployment, github-pages, hexo]
+tags:
+  - deployment
+  - github-pages
+  - hexo
 priority: high
 created_at: '2026-01-12T02:33:04.379Z'
+updated_at: '2026-01-12T07:16:47.529Z'
+completed_at: '2026-01-12T07:16:47.529Z'
+completed: '2026-01-12'
+transitions:
+  - status: complete
+    at: '2026-01-12T07:16:47.529Z'
 ---
 
 # Deploy to GitHub Pages
 
-> **Status**: ✅ Completed · **Priority**: High · **Created**: 2026-01-12
+> **Status**: ✅ Complete · **Priority**: High · **Created**: 2026-01-12 · **Tags**: deployment, github-pages, hexo
 
 ## Overview
 

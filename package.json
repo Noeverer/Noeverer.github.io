@@ -8,8 +8,9 @@
     "clean": "hexo clean",
     "server": "hexo server",
     "new": "hexo new",
-    "verify": "bash scripts/verify-blog.sh",
-    "test-build": "bash scripts/local-test-build.sh",
+    "verify": "bash tools/validate-published.sh check",
+    "verify-fix": "bash tools/validate-published.sh fix",
+    "test-build": "hexo clean && hexo generate",
     "dev": "hexo clean && hexo generate && hexo server"
   },
   "keywords": [
