@@ -37,3 +37,9 @@ slider.*.js
 
 # Backup directories (tools moved to .github/)
 scripts_tools_backup/
+scripts_backup/
+
+# Hexo scripts (shell/Python scripts that shouldn't be loaded by Hexo)
+scripts/*.sh
+scripts/*.py
+scripts/README.md

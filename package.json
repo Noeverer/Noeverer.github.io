@@ -8,8 +8,9 @@
     "clean": "hexo clean",
     "server": "hexo server",
     "new": "hexo new",
-    "verify": "bash scripts/verify-blog.sh",
-    "test-build": "bash scripts/local-test-build.sh",
+    "verify": "bash tools/validate-published.sh check",
+    "verify-fix": "bash tools/validate-published.sh fix",
+    "test-build": "hexo clean && hexo generate",
     "dev": "hexo clean && hexo generate && hexo server"
   },
   "keywords": [
@@ -38,7 +39,8 @@
     "hexo-renderer-marked": "^6.0.0",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
-    "hexo-theme-butterfly": "^5.5.3"
+    "hexo-theme-butterfly": "^5.5.3",
+    "lean-spec": "^0.2.10"
   },
   "devDependencies": {
     "hexo-renderer-pug": "^3.0.0"

@@ -14,11 +14,13 @@ menu:
   标签: /tags/ || fas fa-tags
   分类: /categories/ || fas fa-folder-open
   生活||fas fa-heart:
-    - 随笔 || /tags/随笔/ 
     - 感悟 || /tags/感悟/
   技术||fas fa-code:
-    - LeetCode || /tags/LeetCode/
-    - Python || /tags/Python/
+    - 编程 || /tags/code/
+    - Python || /tags/python/
+  学习||fas fa-book:
+    - 学习笔记 || /tags/study/
+    - 思维导图 || /tags/mindmap/
   关于: /about/ || fas fa-address-card
 
 # 搜索
