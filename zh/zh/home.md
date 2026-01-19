@@ -2,19 +2,23 @@
 title: 001-home
 description: 
 published: true
-date: 2026-01-19T12:47:12.025Z
+date: 2026-01-19T12:49:05.802Z
 tags: home
 editor: markdown
 dateCreated: 2026-01-19T12:36:27.575Z
 ---
 
-# hello
- hello world
+> # hello
+{.is-danger}
+
+>  hello world
+{.is-info}
+
  
  
  
  fasdf
- asd
+>  asd
  fa
  sdf
  asd
