@@ -1,0 +1,31 @@
+# Wiki.js 配置示例
+# 详细配置选项请参考官方文档
+
+# 服务器配置
+server:
+  port: 3000
+  host: 0.0.0.0
+  
+# 数据库配置
+db:
+  type: postgres
+  host: localhost
+  port: 5432
+  user: wikijs
+  pass: your_password
+  db: wikijs
+
+# 安全配置
+security:
+  admin:
+    # 初始管理员密码（首次运行后应立即更改）
+    password: InitialAdminPassword123!
+
+# Git 存储配置
+git:
+  enabled: true
+  remoteUrl: https://github.com/Noeverer/wikijs-content.git
+  branch: main
+  author:
+    name: Wiki.js Bot
+    email: bot@noeverer.github.io

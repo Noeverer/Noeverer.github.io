@@ -38,20 +38,7 @@ description: 文章描述
 文章内容...
 ```
 
-### 预览本地效果（可选）
-
-```bash
-# 方式1：开发模式（推荐）
-npm run dev
-
-# 方式2：分步执行
-npm install
-npm run server
-```
-
-访问 http://localhost:4000
-
-### 验证配置
+### 验证本地配置
 
 ```bash
 # 验证博客配置是否正确
@@ -61,15 +48,97 @@ npm run verify
 npm run test-build
 ```
 
-### 发布文章
+---
 
-```bash
-git add .
-git commit -m "发布新文章"
-git push origin master
+## 🤖 自动部署流程
+
+当代码推送到 `master` 分支时，GitHub Actions 会自动：
+
+1. 安装 Node.js 18 和 npm 依赖
+2. 验证主题安装
+3. 运行 `hexo clean` 和 `hexo generate` 生成静态网站
+4. 验证构建输出（检查 index.html 是否生成）
+5. 将生成的 `public/` 目录部署到 `gh-pages` 分支
+6. 显示部署摘要
+
+无需手动执行任何部署命令，专注于写作即可。
+
+---
+
+## 🌐 Wiki.js 知识库
+
+除了博客外，我还部署了一个 Wiki.js 知识库，用于组织和管理更结构化的知识内容。
+
+### Wiki.js 访问地址
+
+**https://wiki.noeverer.github.io**
+
+### 部署架构
+
+Wiki.js 与 GitHub Pages 联动，实现内容自动发布：
+
+```
+┌─────────────────┐
+│   Wiki.js       │ (Linux 本地部署)
+│   localhost:3000│
+│                 │
+│   - 内容编辑     │
+│   - 文档管理     │
+│   - Git 存储     │
+└────────┬────────┘
+         │ Git Push
+         ↓
+┌─────────────────┐
+│   GitHub        │
+│   Wiki Content  │
+│   Repository    │
+│   (私有仓库)    │
+└────────┬────────┘
+         │ GitHub Actions
+         ↓
+┌─────────────────┐
+│   GitHub Pages  │
+│   静态 Wiki 站点 │
+│   wiki.noeverer│
+│   .github.io    │
+└─────────────────┘
 ```
 
-推送到 `master` 分支后，GitHub Actions 会自动构建并部署。
+### Wiki.js 部署配置
+
+Wiki.js 部署配置位于 `wikijs-deploy/` 目录：
+
+```
+wikijs-deploy/
+├── docker-compose.yml      # Docker 配置
+├── .env                    # 环境变量
+├── deploy.sh               # 部署脚本
+├── nginx/                  # Nginx 配置
+│   └── wikijs.conf
+└── backup/                 # 备份脚本
+    └── backup.sh
+```
+
+#### 部署步骤
+
+1. 进入部署目录：
+   ```bash
+   cd wikijs-deploy
+   ```
+
+2. 配置数据库密码：
+   ```bash
+   cp .env.example .env
+   # 编辑 .env 文件设置密码
+   nano .env
+   ```
+
+3. 启动服务：
+   ```bash
+   ./deploy.sh
+   ```
+
+更多详细信息请查看 [resources/wikijs/README.md](resources/wikijs/README.md)
 
 ---
 
@@ -88,23 +157,9 @@ Noeverer.github.io/
 │   ├── local-test-build.sh          # 本地构建测试
 │   └── README.md                    # 脚本使用说明
 ├── package.json                     # 依赖配置
+├── wikijs-deploy/                   # Wiki.js 部署配置
 └── .gitignore                       # Git 忽略规则
 ```
-
----
-
-## 🤖 自动部署流程
-
-当代码推送到 `master` 分支时，GitHub Actions 会自动：
-
-1. 安装 Node.js 18 和 npm 依赖
-2. 验证主题安装
-3. 运行 `hexo clean` 和 `hexo generate` 生成静态网站
-4. 验证构建输出（检查 index.html 是否生成）
-5. 将生成的 `public/` 目录部署到 `gh-pages` 分支
-6. 显示部署摘要
-
-无需手动执行任何部署命令，专注于写作即可。
 
 ---
 
@@ -246,4 +301,3 @@ MIT License
 ## 📚 更多文档
 
 详细的脚本使用说明请查看：[scripts/README.md](scripts/README.md)
-
