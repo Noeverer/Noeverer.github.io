@@ -80,6 +80,8 @@ GitHub Pages (gh-pages branch)
 - [ ] 检查归档页面是否包含所有年份文章
 - [ ] 测试个别文章链接可访问
 
+**注意**：GitHub Actions workflow #29 已成功运行（38s），但 GitHub Pages 可能需要 2-5 分钟刷新 CDN 缓存。当前线上显示的是旧缓存内容（12 篇文章，旧菜单）。需要等待 GitHub Pages 完全更新后再进行最终验证。
+
 ## Test
 
 ### 测试用例
