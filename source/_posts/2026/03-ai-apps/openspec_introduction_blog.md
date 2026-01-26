@@ -1,3 +1,9 @@
+---
+title: OpenSpec：规范驱动开发的现代化解决方案
+date: 2026-01-26 10:26:21
+tags: [SDD, Specification Driven Development, 软件开发, 规范]
+categories: [软件工程, 开发方法论]
+---
 # OpenSpec：规范驱动开发的现代化解决方案
 
 ## 引言

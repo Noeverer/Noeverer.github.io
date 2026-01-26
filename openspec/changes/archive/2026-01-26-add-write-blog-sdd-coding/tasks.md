@@ -14,13 +14,13 @@
 - [x] Add best practices section
 
 ## Phase 3: Implementation
-- [ ] Create blog post file in Hexo structure
-- [ ] Apply proper formatting and styling
-- [ ] Add relevant code examples
-- [ ] Include diagrams or illustrations (if needed)
-- [ ] Proofread and edit content
+- [x] Create blog post file in Hexo structure
+- [x] Apply proper formatting and styling
+- [x] Add relevant code examples
+- [x] Include diagrams or illustrations (if needed)
+- [x] Proofread and edit content
 
 ## Phase 4: Review and Publish
-- [ ] Technical review
-- [ ] Content review
-- [ ] Final publishing
+- [x] Technical review
+- [x] Content review
+- [x] Final publishing
