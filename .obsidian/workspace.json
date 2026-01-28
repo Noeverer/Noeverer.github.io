@@ -11,10 +11,14 @@
             "id": "9ff5ee5dab5d5e82",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "AGENTS.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "AGENTS"
             }
           }
         ]
@@ -37,7 +41,7 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": true
               },
               "icon": "lucide-folder-closed",
               "title": "文件列表"
@@ -191,6 +195,8 @@
   },
   "active": "4a5a2fde7e9088e2",
   "lastOpenFiles": [
+    "README.md",
+    "AGENTS.md",
     "docs/QUICK_REFERENCE.md",
     "docs/BLOG_MIGRATION_README.md",
     "source/_posts/2026/01-tools/obsidian同步github action.md",
@@ -225,8 +231,6 @@
     "docs/QUICK_START.md",
     "docs/PUBLISHED_FIELD_GUIDE.md",
     "docs/PROJECT_SUMMARY.md",
-    "docs/MIGRATION_GUIDE.md",
-    "docs/CLEANUP_SUMMARY.md",
     "source/img/work/7d60170d6038b5b9990e7df4cdafd74.jpg",
     "source/img/life/d4e02ff2b71ff343669c27b1c6b9416.jpg",
     "source/img/wechat.png",
