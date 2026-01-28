@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "4a9be9c2c5c1cbb8",
+        "id": "ffeb7e724b76aa0b",
         "type": "tabs",
         "children": [
           {
-            "id": "9ff5ee5dab5d5e82",
+            "id": "a71fca48c2e54e59",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AGENTS.md",
+                "file": "source/_posts/2026/01-tools/README.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "AGENTS"
+              "title": "README"
             }
           }
         ]
@@ -193,16 +193,21 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4a5a2fde7e9088e2",
+  "active": "a71fca48c2e54e59",
   "lastOpenFiles": [
+    "source/_posts/2026/01-tools/obsidian同步github action.md",
+    "source/_posts/2026/01-tools/hugging-face.md",
+    "source/_posts/2026/01-tools/hexo-install.md",
+    "source/_posts/2026/00-personal-goal/上海人工智能训练师三级证书完整备考指南.md",
+    "source/_posts/2026/00-personal-goal/20260120.md",
+    "source/_posts/2026/03-ai-apps/sdd_coding_introduction_blog.md",
+    "source/_posts/2026/03-ai-apps/openspec_introduction_blog.md",
     "README.md",
     "AGENTS.md",
+    "zh/zh/home.md",
     "docs/QUICK_REFERENCE.md",
     "docs/BLOG_MIGRATION_README.md",
-    "source/_posts/2026/01-tools/obsidian同步github action.md",
     "source/_posts/2026/01-tools/README.md",
-    "source/_posts/2026/00-personal-goal/20260120.md",
-    "source/_posts/2026/00-personal-goal/上海人工智能训练师三级证书完整备考指南.md",
     "openspec/changes/archive/2026-01-26-document-blog-project-overview/specs/blog/spec.md",
     "openspec/changes/archive/2026-01-26-add-write-blog-sdd-coding/specs/blog/spec.md",
     "openspec/changes/document-blog-project-overview/specs/blog/spec.md",
@@ -226,11 +231,6 @@
     "openspec/changes/add-write-blog-sdd-coding/tasks.md",
     "openspec/changes/add-write-blog-sdd-coding/specs",
     "openspec/changes/add-write-blog-sdd-coding/proposal.md",
-    "docs/USAGE.md",
-    "docs/THEME_RECOMMENDATION.md",
-    "docs/QUICK_START.md",
-    "docs/PUBLISHED_FIELD_GUIDE.md",
-    "docs/PROJECT_SUMMARY.md",
     "source/img/work/7d60170d6038b5b9990e7df4cdafd74.jpg",
     "source/img/life/d4e02ff2b71ff343669c27b1c6b9416.jpg",
     "source/img/wechat.png",
