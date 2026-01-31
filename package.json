@@ -11,7 +11,10 @@
     "verify": "bash tools/validate-published.sh check",
     "verify-fix": "bash tools/validate-published.sh fix",
     "test-build": "cd blog && hexo clean && hexo generate",
-    "dev": "cd blog && hexo clean && hexo generate && hexo server"
+    "dev": "cd blog && hexo clean && hexo generate && hexo server",
+    "generate-book": "cd tools/access-control && node generate-book.js",
+    "access-control": "cd tools/access-control && node control-access.js",
+    "list-posts": "cd tools/access-control && node control-access.js --list-posts"
   },
   "keywords": [
     "hexo",

@@ -1,0 +1,23 @@
+{
+  "name": "blog-access-control",
+  "version": "1.0.0",
+  "description": "Blog access control and book generation tools",
+  "main": "control-access.js",
+  "scripts": {
+    "access-control": "node tools/access-control/control-access.js",
+    "generate-book": "node tools/access-control/generate-book.js",
+    "list-posts": "node tools/access-control/control-access.js --list-posts",
+    "check-access": "node tools/access-control/control-access.js --check-access"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3"
+  },
+  "keywords": [
+    "blog",
+    "access-control",
+    "publishing",
+    "book-generation"
+  ],
+  "author": "Ante Liu",
+  "license": "MIT"
+}
