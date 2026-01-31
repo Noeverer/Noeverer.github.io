@@ -1,0 +1,2 @@
+Deploy trigger - $(date)
+This file is used to trigger GitHub Actions deployment.

@@ -1,0 +1,250 @@
+{
+  "main": {
+    "id": "b52113a7c5968e93",
+    "type": "split",
+    "children": [
+      {
+        "id": "5687979a4ab0cb51",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "403f4ae0a8001822",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AGENTS.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "AGENTS"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "9ad320fdcc660ac2",
+    "type": "split",
+    "children": [
+      {
+        "id": "f67bab5998d40e33",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4a5a2fde7e9088e2",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "946dcd8c249ac336",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "46fcbae675e630f3",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "cfe189f4ad4a9636",
+    "type": "split",
+    "children": [
+      {
+        "id": "3f0f860336db8019",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "25cedf87620a3e35",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "欢迎.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "欢迎 的反向链接列表"
+            }
+          },
+          {
+            "id": "e7df0443c223a98f",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "欢迎.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "欢迎 的出链列表"
+            }
+          },
+          {
+            "id": "d327988abf556e0b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "130b8cd3ae3c8533",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "53b449fa50bf145f",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大纲"
+            }
+          },
+          {
+            "id": "0cf06a3b2ef83d70",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "horizontal",
+    "width": 309.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "obsidian-git:Open Git source control": false,
+      "copilot:Open Copilot Chat": false,
+      "obsidian-livesync:P2P Replicator": false,
+      "obsidian-livesync:Show Log": false,
+      "obsidian-livesync:Replicate": false,
+      "obsidian-livesync:Show Customization sync": false
+    }
+  },
+  "active": "403f4ae0a8001822",
+  "lastOpenFiles": [
+    "README.md",
+    "AGENTS.md",
+    "Clippings/豆包.md",
+    "source/_posts/2026/01-tools/04-Wiki.js Docker 部署指南.md",
+    "source/_posts/2026/01-tools/05-obsidian.md",
+    "Clippings",
+    "source/_posts/2026/01-tools/03-obsidian同步github action.md",
+    "source/_posts/2026/2026-01-28.md",
+    "2026-01-28.md",
+    "未命名.base",
+    "未命名 1.md",
+    "source/_posts/2026/01-tools/01-hexo-install.md",
+    "source/_posts/2026/01-tools/02-hugging-face.md",
+    "source/resources/template/template.md",
+    "nihao.md",
+    "source/resources/template",
+    "source/_posts/2026/00-personal-goal/上海人工智能训练师三级证书完整备考指南.md",
+    "source/_posts/2026/00-personal-goal/20260120.md",
+    "source/_posts/2026/03-ai-apps/sdd_coding_introduction_blog.md",
+    "source/_posts/2026/03-ai-apps/openspec_introduction_blog.md",
+    "zh/zh/home.md",
+    "docs/QUICK_REFERENCE.md",
+    "docs/BLOG_MIGRATION_README.md",
+    "openspec/changes/archive/2026-01-26-document-blog-project-overview/specs/blog/spec.md",
+    "openspec/changes/archive/2026-01-26-add-write-blog-sdd-coding/specs/blog/spec.md",
+    "openspec/changes/document-blog-project-overview/specs/blog/spec.md",
+    "openspec/changes/archive/2026-01-26-document-blog-project-overview/specs/blog",
+    "openspec/changes/archive/2026-01-26-add-write-blog-sdd-coding/specs/blog",
+    "openspec/changes/add-write-blog-sdd-coding/specs/blog/spec.md",
+    "openspec/changes/document-blog-project-overview/specs/blog",
+    "openspec/changes/archive/2026-01-26-document-blog-project-overview/tasks.md",
+    "openspec/changes/archive/2026-01-26-document-blog-project-overview/specs",
+    "openspec/changes/archive/2026-01-26-document-blog-project-overview/proposal.md",
+    "openspec/changes/archive/2026-01-26-add-write-blog-sdd-coding/specs",
+    "openspec/changes/add-write-blog-sdd-coding/specs/blog",
+    "openspec/changes/document-blog-project-overview/specs",
+    "source/img/work/7d60170d6038b5b9990e7df4cdafd74.jpg",
+    "source/img/life/d4e02ff2b71ff343669c27b1c6b9416.jpg",
+    "source/img/wechat.png",
+    "source/img/tree.jpg",
+    "source/img/scrollbar_arrow.png",
+    "source/img/preloader.gif",
+    "source/img/monkey.jpg",
+    "source/img/jianli_17721223307.png",
+    "source/img/error_remote_repo.png",
+    "source/img/index_top_img.jpg"
+  ]
+}

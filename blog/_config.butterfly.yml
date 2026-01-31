@@ -1,0 +1,243 @@
+# Hexo Theme Butterfly Configuration
+# Docs: https://butterfly.js.org/posts/21cfbf15/
+
+# 网站信息
+site_name: 'Ante Liu'
+site_author: 'Ante Liu'
+site_description: '肄业，爱车，爱菇凉，爱民谣。墓志铭：Go and Null。'
+site_keywords: '理智,感性,AB型,codinginging'
+
+# 导航栏
+menu:
+  首页: / || fas fa-home
+  归档: /archives/ || fas fa-archive
+  标签: /tags/ || fas fa-tags
+  分类: /categories/ || fas fa-folder-open
+  生活||fas fa-heart:
+    - 感悟 || /tags/感悟/
+  技术||fas fa-code:
+    - 编程 || /tags/code/
+    - Python || /tags/python/
+  学习||fas fa-book:
+    - 学习笔记 || /tags/study/
+    - 思维导图 || /tags/mindmap/
+  关于: /about/ || fas fa-address-card
+
+# 搜索
+local_search:
+  enable: true
+  preload: false
+
+# 代码高亮
+highlight_theme: mac light
+
+# 社交图标
+social:
+  fab fa-github: https://github.com/Noeverer || Github
+  fas fa-envelope: mailto:robotliu0327@gmail.com || Email
+
+# 主题色
+theme_color:
+  enable: true
+  main: '#4C4948'
+  paginator: '#00c4b6'
+  button_hover: '#FF7242'
+  text_selection: '#00c4b6'
+  link_color: '#99a9bf'
+  hr_color: '#A4D8FA'
+
+# 字体
+font:
+  font-size: 15px
+  font-family: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+
+# 图片
+avatar:
+  img: /source/img/tree.jpg
+  effect: false
+
+# 顶部图
+# 禁用所有顶部图片
+disable_top_img: false
+# 如果页面没有设置横幅，将显示 default_top_img
+default_top_img: linear-gradient(20deg, #0062be, #925696, #cc426e, #f43059)
+# 首页横幅图片
+index_img: /source/img/tree.jpg
+index_site_info_top: null
+
+# 文章元数据
+post_meta:
+  page:
+    date_type: both
+    date_format: 'YYYY-MM-DD HH:mm:ss'
+    categories: true
+    tags: true
+    label: true
+  post:
+    date_type: both
+    date_format: 'YYYY-MM-DD HH:mm:ss'
+    categories: true
+    tags: true
+    label: true
+
+# 文章封面
+cover_index_enable: true
+cover_archive_enable: false
+cover_tag_enable: false
+cover_category_enable: false
+random_cover: false
+
+# 分页
+pagination_style: 3
+
+# 侧边栏
+aside:
+  enable: true
+  hide: false
+  button: true
+  mobile: true
+  position: right
+  display:
+    archive: true
+    tag: true
+    category: true
+  card_author:
+    enable: true
+    description: '生活不止眼前的苟且，还有诗和远方'
+    button:
+      enable: true
+      icon: fab fa-github
+      text: Github
+      link: https://github.com/Noeverer
+  card_announcement:
+    enable: false
+    content: '欢迎访问我的博客'
+  card_recent_post:
+    enable: true
+    limit: 5
+    sort: date
+    sort_order: -1
+  card_categories:
+    enable: true
+    limit: 10
+    expand: none
+    sort_order: -1
+  card_tags:
+    enable: true
+    limit: 20
+    orderby: random
+    order: count
+    transition: true
+  card_archives:
+    enable: true
+    type: monthly
+    format: MMMM YYYY
+    order: -1
+    limit: 10
+    sort: date
+
+# 页脚
+footer:
+  owner:
+    enable: true
+    since: 2015
+  custom_text: 'Thank you for visiting my blog'
+  copyright: true
+  record_link:
+  record_number:
+
+# 404页面
+error_404:
+  enable: true
+  subtitle: '页面不存在'
+  background: 'https://cdn.jsdelivr.net/gh/jerryc127/butterfly_theme_source/img/404.jpg'
+
+# 运行时间
+runtimeshow:
+  enable: true
+  publish_date: '01/01/2015 00:00:00'
+  unit: '天'
+
+# 侧边栏设置
+toc:
+  enable: true
+  number: true
+  expand_all: false
+  init_open: true
+  layout: right
+
+# 评论（默认关闭，可后续配置）
+comments:
+  use: false
+  text: 'Just go home'
+
+# PWA（离线访问）
+pwa:
+  enable: false
+
+# 性能优化
+preload:
+  enable: true
+  service:
+    fas: https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css
+    # 可以根据需要添加更多CDN
+
+# 优化
+lazyload:
+  enable: true
+  field: site
+  placeholder: /img/loading.gif
+  errorimg: /img/error.gif
+
+# 图片懒加载
+fancybox: true
+
+# Mermaid图表
+mermaid:
+  enable: false
+  theme: default
+
+# MathJax数学公式
+mathjax:
+  enable: false
+
+# KaTeX数学公式
+katex:
+  enable: false
+
+# Aplayer音乐播放器
+aplayerInject:
+  enable: false
+
+# 自定义JS/CSS
+inject:
+  head:
+  bottom:
+
+# 友情链接
+link: false
+
+# 夜间模式
+display_mode:
+  light: # 浅色模式
+    enable: true
+    icon: 'fa fa-sun'
+    theme: 'light'
+  dark: # 深色模式
+    enable: true
+    icon: 'fa fa-moon'
+    theme: 'dark'
+  auto: # 自动切换
+    enable: true
+    icon: 'fa fa-adjust'
+
+# 打印
+print_enable: false
+
+# 版权声明
+post_copyright:
+  enable: true
+  decode: true
+  author_href:
+  license: CC BY-NC-SA 4.0
+  license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/

@@ -1,0 +1,83 @@
+# Hexo generated files
+public/
+.db.json
+*.tmp
+*.log
+node_modules/
+.sass-cache
+drafts/
+*.swp
+*~.nib
+index.html
+*.orig
+
+# Dependencies
+node_modules/
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components/
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build/Release/
+
+# Typescript v1 declaration files
+typings/
+
+# dotenv environment variables file
+.env
+.env.test
+
+# Thumbnails
+Thumbs.db
+
+# Mac
+.DS_Store
+
+# Yarn
+.yarn/
+
+# NPM Next Generation
+!/.npm
+.npm
+
+# Gulp
+gulp_cache/
+
+# Archive
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Large files and exports
+# 大文件和导出文件
+*.tar
+*.tar.gz
+*.zip
+*.rar
+*.7z
+*.iso
+*.dmg
+*.img
+
+# Wiki.js 导出文件
+tools/wikijs-syn/wikijs-deploy/export/*
+tools/wikijs-syn/wikijs-deploy/wikijs-*.tar*
+
+# Database files
+*.db
+*.db-journal
+
+# Backup files
+*.bak
+*.backup

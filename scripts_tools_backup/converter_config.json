@@ -1,0 +1,37 @@
+{
+  "conversion": {
+    "input_directories": [
+      "chocolate",
+      "code",
+      "Fun_thing",
+      "work",
+      "life",
+      "love",
+      "Problem-Encounted-in-Blogging"
+    ],
+    "output_directory": "source/_posts",
+    "default_date": "2019-08-01",
+    "skip_files": [
+      "README.html",
+      "TOC.html",
+      "index.html",
+      "hello-world.html"
+    ],
+    "skip_directories": [
+      "node_modules",
+      "life/chocolate"
+    ]
+  },
+  "theme_recommendation": {
+    "enabled": true,
+    "preferred_themes": [
+      "next",
+      "butterfly",
+      "fluid"
+    ]
+  },
+  "logging": {
+    "log_file": "html2hexo.log",
+    "log_level": "INFO"
+  }
+}
