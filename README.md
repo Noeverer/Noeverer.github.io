@@ -162,11 +162,21 @@ Noeverer.github.io/
 ├── resources/                      # 资源文件
 ├── specs/                          # 规范文档
 ├── zh/                             # 中文内容
+├── Clippings/                      # 笔记剪贴
 ├── .github/workflows/deploy.yml    # GitHub Actions 自动部署
 ├── package.json                    # 依赖配置
 ├── wikijs-deploy/                  # Wiki.js 部署配置
 └── .gitignore                      # Git 忽略规则
 ```
+
+## 🧹 项目清理
+
+已完成以下清理工作：
+
+- 删除了旧的备份目录 (source_old/, scripts_old/, tools_old/, scripts_tools_backup/)
+- 移除了编译输出文件 (public/, db.json)
+- 将 AGENTS.md 移至 docs/ 目录
+- 确保只保留源文件，便于版本控制和协作
 
 ---
 
