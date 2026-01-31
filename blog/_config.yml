@@ -83,3 +83,9 @@ deploy:
   type: git
   repo: https://github.com/Noeverer/Noeverer.github.io.git
   branch: gh-pages
+
+skip_render:
+  - "scripts/**/*"
+  - "**/*.py"
+  - "**/*.sh"
+  - "**/*.json"
