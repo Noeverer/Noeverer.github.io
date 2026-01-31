@@ -14,7 +14,8 @@
     "dev": "cd blog && hexo clean && hexo generate && hexo server",
     "generate-book": "cd tools/access-control && node generate-book.js",
     "access-control": "cd tools/access-control && node control-access.js",
-    "list-posts": "cd tools/access-control && node control-access.js --list-posts"
+    "list-posts": "cd tools/access-control && node control-access.js --list-posts",
+    "update-mcp-guide": "bash tools/update-mcp-guide.sh"
   },
   "keywords": [
     "hexo",

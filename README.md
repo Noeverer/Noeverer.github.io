@@ -323,6 +323,35 @@ MIT License
 
 本博客支持访问控制和书籍生成功能：
 
+## 📘 MCP系统指南
+
+本博客包含一个完整的MCP（Model Context Protocol）系统指南，涵盖以下主题：
+
+- **MCP基础**：什么是MCP及其核心概念
+- **AI Agents**：智能体的设计和实现
+- **Skills系统**：功能扩展机制
+- **Memories系统**：知识存储和检索
+- **Rules系统**：行为约束和治理
+- **系统集成**：各组件协同工作的方式
+
+### 实时更新
+
+MCP指南内容可以通过以下命令更新：
+
+```bash
+npm run update-mcp-guide
+```
+
+### 书籍生成
+
+将MCP指南生成书籍格式：
+
+```bash
+npm run generate-book
+```
+
+生成的书籍将包含最新的MCP系统指南内容。
+
 ### 访问控制
 
 在文章的 front-matter 中添加以下字段：

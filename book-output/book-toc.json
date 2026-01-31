@@ -1,5 +1,41 @@
 [
   {
+    "title": "MCP系统指南 - 第6章：系统集成与最佳实践",
+    "path": "/home/ante/10-personal/Noeverer.github.io/blog/source/_posts/mcp-guide/06-integration-best-practices.md",
+    "date": "2026-01-31T23:55:00.000Z",
+    "category": "技术指南"
+  },
+  {
+    "title": "MCP系统指南 - 第5章：Rules系统详解",
+    "path": "/home/ante/10-personal/Noeverer.github.io/blog/source/_posts/mcp-guide/05-rules-system.md",
+    "date": "2026-01-31T23:54:00.000Z",
+    "category": "技术指南"
+  },
+  {
+    "title": "MCP系统指南 - 第4章：Memories系统详解",
+    "path": "/home/ante/10-personal/Noeverer.github.io/blog/source/_posts/mcp-guide/04-memories-system.md",
+    "date": "2026-01-31T23:53:00.000Z",
+    "category": "技术指南"
+  },
+  {
+    "title": "MCP系统指南 - 第3章：Skills系统详解",
+    "path": "/home/ante/10-personal/Noeverer.github.io/blog/source/_posts/mcp-guide/03-skills-system.md",
+    "date": "2026-01-31T23:52:00.000Z",
+    "category": "技术指南"
+  },
+  {
+    "title": "MCP系统指南 - 第2章：AI Agents详解",
+    "path": "/home/ante/10-personal/Noeverer.github.io/blog/source/_posts/mcp-guide/02-ai-agents.md",
+    "date": "2026-01-31T23:51:00.000Z",
+    "category": "技术指南"
+  },
+  {
+    "title": "MCP系统指南 - 第1章：什么是MCP？",
+    "path": "/home/ante/10-personal/Noeverer.github.io/blog/source/_posts/mcp-guide/01-what-is-mcp.md",
+    "date": "2026-01-31T23:50:00.000Z",
+    "category": "技术指南"
+  },
+  {
     "title": "示例文章 - 访问控制演示",
     "path": "/home/ante/10-personal/Noeverer.github.io/blog/source/_posts/2026/demo-access-control.md",
     "date": "2026-01-31T23:30:00.000Z",
