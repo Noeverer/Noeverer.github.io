@@ -28,6 +28,7 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+  - "scripts/**/*"
 
 # 写作
 new_post_name: :title.md
@@ -72,6 +73,10 @@ pagination_dir: page
 
 # 扩展
 theme: butterfly
+
+# 预处理配置
+ignore:
+  - "../scripts/**/*"
 
 # 部署配置（使用GitHub Actions，此处仅作为参考）
 deploy:
