@@ -166,6 +166,203 @@ Skill的升级策略：
 - **数据权限**：限制工具能访问什么数据
 - **配额管理**：控制使用的频率和数量
 
+### 实践案例：开发一个完整的Skill
+
+让我们通过一个实际的例子来理解Skill的开发过程：
+
+**1. 需求分析**
+假设我们需要开发一个"汇率转换器"Skill，能够将一种货币转换为另一种货币。
+
+**2. 接口设计**
+```json
+{
+  "name": "currency_converter",
+  "description": "Convert currency from one type to another",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "amount": {
+        "type": "number",
+        "description": "The amount to convert"
+      },
+      "from_currency": {
+        "type": "string",
+        "description": "Source currency code (e.g., USD, EUR, CNY)"
+      },
+      "to_currency": {
+        "type": "string",
+        "description": "Target currency code (e.g., USD, EUR, CNY)"
+      }
+    },
+    "required": ["amount", "from_currency", "to_currency"]
+  }
+}
+```
+
+**3. 实现开发**
+```python
+import requests
+import json
+from typing import Dict, Any
+
+class CurrencyConverterSkill:
+    """货币转换Skill实现"""
+
+    def __init__(self, api_key: str = None):
+        self.api_key = api_key
+        self.base_url = "https://api.exchangerate-api.com/v4/latest/"
+
+    def execute(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        执行货币转换
+        :param params: 包含amount, from_currency, to_currency的参数
+        :return: 转换结果
+        """
+        try:
+            amount = params.get('amount', 1)
+            from_currency = params.get('from_currency', 'USD').upper()
+            to_currency = params.get('to_currency', 'CNY').upper()
+
+            # 获取汇率
+            response = requests.get(f"{self.base_url}{from_currency}")
+
+            if response.status_code == 200:
+                data = response.json()
+
+                if to_currency in data['rates']:
+                    rate = data['rates'][to_currency]
+                    converted_amount = amount * rate
+
+                    return {
+                        "success": True,
+                        "original_amount": amount,
+                        "from_currency": from_currency,
+                        "to_currency": to_currency,
+                        "converted_amount": round(converted_amount, 2),
+                        "exchange_rate": rate,
+                        "timestamp": data.get('date')
+                    }
+                else:
+                    return {
+                        "success": False,
+                        "error": f"Currency {to_currency} not supported",
+                        "supported_currencies": list(data['rates'].keys())
+                    }
+            else:
+                return {
+                    "success": False,
+                    "error": f"Failed to fetch exchange rates: {response.status_code}"
+                }
+
+        except Exception as e:
+            return {
+                "success": False,
+                "error": str(e)
+            }
+
+# 使用示例
+if __name__ == "__main__":
+    converter = CurrencyConverterSkill()
+
+    # 测试转换
+    result = converter.execute({
+        "amount": 100,
+        "from_currency": "USD",
+        "to_currency": "EUR"
+    })
+
+    print(json.dumps(result, indent=2))
+```
+
+**4. 配置文件**
+```yaml
+# skills/currency_converter/config.yaml
+skill:
+  id: "currency_converter"
+  name: "Currency Converter"
+  version: "1.0.0"
+  description: "Convert currency from one type to another"
+  author: "Your Name"
+  category: "Finance"
+
+  parameters:
+    - name: "amount"
+      type: "number"
+      required: true
+      description: "The amount to convert"
+
+    - name: "from_currency"
+      type: "string"
+      required: true
+      description: "Source currency code (e.g., USD, EUR, CNY)"
+
+    - name: "to_currency"
+      type: "string"
+      required: true
+      description: "Target currency code (e.g., USD, EUR, CNY)"
+
+  permissions:
+    - "network_access"
+
+  rate_limits:
+    calls_per_minute: 100
+    calls_per_hour: 1000
+
+  security:
+    input_validation: true
+    output_sanitization: true
+```
+
+**5. 测试文件**
+```python
+# tests/test_currency_converter.py
+import unittest
+from skills.currency_converter import CurrencyConverterSkill
+
+class TestCurrencyConverterSkill(unittest.TestCase):
+    def setUp(self):
+        self.skill = CurrencyConverterSkill()
+
+    def test_valid_conversion(self):
+        """测试有效的货币转换"""
+        result = self.skill.execute({
+            "amount": 100,
+            "from_currency": "USD",
+            "to_currency": "EUR"
+        })
+
+        self.assertTrue(result["success"])
+        self.assertIsInstance(result["converted_amount"], (int, float))
+        self.assertGreater(result["converted_amount"], 0)
+
+    def test_invalid_currency(self):
+        """测试无效的货币代码"""
+        result = self.skill.execute({
+            "amount": 100,
+            "from_currency": "USD",
+            "to_currency": "INVALID"
+        })
+
+        self.assertFalse(result["success"])
+        self.assertIn("error", result)
+
+    def test_zero_amount(self):
+        """测试零金额转换"""
+        result = self.skill.execute({
+            "amount": 0,
+            "from_currency": "USD",
+            "to_currency": "EUR"
+        })
+
+        self.assertTrue(result["success"])
+        self.assertEqual(result["converted_amount"], 0)
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+这个实践案例展示了如何开发一个完整的Skill，包括需求分析、接口设计、实现开发、配置和测试。
+
 ## 最佳实践
 
 ### 设计原则

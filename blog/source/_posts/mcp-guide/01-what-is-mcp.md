@@ -128,6 +128,120 @@ MCP采用简洁明了的客户端-服务器架构：
 4. **返回数据给AI模型**：天气数据返回到AI
 5. **AI生成自然语言回复**：AI用人类容易理解的方式回答：“今天北京晴天，气温15-25度，适合出行。”
 
+### 实践案例：构建一个简单的天气查询MCP服务
+
+让我们通过一个实际的例子来理解MCP的实现：
+
+**MCP服务器端代码示例（Python）**：
+```python
+from flask import Flask, request, jsonify
+import requests
+
+app = Flask(__name__)
+
+@app.route('/v1/tools/weather', methods=['POST'])
+def get_weather():
+    """获取天气信息的MCP服务"""
+    try:
+        # 解析请求参数
+        data = request.json
+        city = data.get('city', 'Beijing')
+
+        # 调用外部天气API
+        api_key = "your_api_key_here"
+        url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            weather_data = response.json()
+            result = {
+                "location": weather_data["name"],
+                "temperature": weather_data["main"]["temp"],
+                "description": weather_data["weather"][0]["description"],
+                "humidity": weather_data["main"]["humidity"]
+            }
+            return jsonify({"result": result})
+        else:
+            return jsonify({"error": "Failed to fetch weather data"}), 500
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
+```
+
+**MCP客户端配置示例**：
+```yaml
+# .well-known/ai-plugin.json
+{
+  "schema_version": "v1",
+  "name_for_human": "Weather Plugin",
+  "name_for_model": "weather_plugin",
+  "description_for_human": "Get current weather information for any city",
+  "description_for_model": "Provides current weather data including temperature, humidity, and conditions",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "http://localhost:8080/openapi.yaml",
+    "has_user_authentication": false
+  },
+  "logo_url": "http://localhost:8080/logo.png",
+  "contact_email": "support@example.com",
+  "legal_info_url": "http://example.com/legal"
+}
+```
+
+**OpenAPI规范示例**：
+```yaml
+openapi: 3.0.1
+info:
+  title: Weather API
+  description: API for retrieving weather information
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /v1/tools/weather:
+    post:
+      operationId: getWeather
+      summary: Get weather information for a city
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                  description: City name
+                  example: "Beijing"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+                    properties:
+                      location:
+                        type: string
+                      temperature:
+                        type: number
+                      description:
+                        type: string
+                      humidity:
+                        type: number
+```
+
+这个实践案例展示了如何构建一个简单的天气查询MCP服务，包括服务器端实现、客户端配置和API规范定义。
+
 ## 实际部署案例
 
 ### 案例一：企业知识管理

@@ -184,6 +184,186 @@ AI Agents在MCP系统中就像一个“总指挥”，协调各个部分的工�
 - **资源管理**：有效管理内存和计算资源（就像合理分配电力，避免超负荷）
 - **缓存策略**：记住常用信息，避免重复计算（就像记住常走的路，不用每次都问路）
 
+### 实践案例：构建一个简单的AI Agent
+
+让我们通过一个实际的例子来理解AI Agent的实现：
+
+**Python实现示例**：
+```python
+import json
+import requests
+from abc import ABC, abstractmethod
+from typing import Dict, Any, List
+
+class Agent(ABC):
+    """AI Agent抽象基类"""
+
+    def __init__(self, name: str):
+        self.name = name
+        self.memory = {}
+        self.skills = []
+
+    @abstractmethod
+    def perceive(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+        """感知模块：处理输入信息"""
+        pass
+
+    @abstractmethod
+    def decide(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        """决策模块：制定行动计划"""
+        pass
+
+    @abstractmethod
+    def act(self, plan: Dict[str, Any]) -> Dict[str, Any]:
+        """执行模块：执行计划"""
+        pass
+
+    def run(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+        """运行Agent的主要流程"""
+        perception = self.perceive(input_data)
+        decision = self.decide(perception)
+        result = self.act(decision)
+        return result
+
+class SimpleTaskAgent(Agent):
+    """简单任务Agent实现"""
+
+    def __init__(self, name: str):
+        super().__init__(name)
+        self.context_history = []  # 上下文记忆
+
+    def perceive(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+        """感知模块实现"""
+        # 解析用户输入，提取关键信息
+        user_input = input_data.get('input', '')
+        user_id = input_data.get('user_id', 'unknown')
+
+        # 简单的意图识别
+        if 'weather' in user_input.lower():
+            intent = 'get_weather'
+        elif 'time' in user_input.lower():
+            intent = 'get_time'
+        else:
+            intent = 'unknown'
+
+        return {
+            'intent': intent,
+            'user_input': user_input,
+            'user_id': user_id,
+            'timestamp': input_data.get('timestamp')
+        }
+
+    def decide(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        """决策模块实现"""
+        intent = context['intent']
+
+        if intent == 'get_weather':
+            # 调用天气查询技能
+            skill = 'weather_skill'
+            params = {'city': 'Beijing'}  # 可以从上下文提取城市信息
+        elif intent == 'get_time':
+            # 调用时间查询技能
+            skill = 'time_skill'
+            params = {}
+        else:
+            skill = 'unknown_skill'
+            params = {}
+
+        return {
+            'skill': skill,
+            'params': params,
+            'context': context
+        }
+
+    def act(self, plan: Dict[str, Any]) -> Dict[str, Any]:
+        """执行模块实现"""
+        skill = plan['skill']
+
+        if skill == 'weather_skill':
+            # 模拟调用天气API
+            result = self._call_weather_api(plan['params']['city'])
+        elif skill == 'time_skill':
+            # 模拟获取当前时间
+            import datetime
+            result = {'current_time': datetime.datetime.now().isoformat()}
+        else:
+            result = {'error': 'Unknown skill'}
+
+        # 更新上下文历史
+        self.context_history.append({
+            'plan': plan,
+            'result': result
+        })
+
+        return result
+
+    def _call_weather_api(self, city: str) -> Dict[str, Any]:
+        """模拟调用天气API"""
+        # 这里应该是实际的API调用
+        # 为了示例，我们返回模拟数据
+        return {
+            'city': city,
+            'temperature': 22,
+            'condition': 'Sunny',
+            'humidity': 65
+        }
+
+# 使用示例
+if __name__ == "__main__":
+    # 创建Agent实例
+    agent = SimpleTaskAgent("MySimpleAgent")
+
+    # 模拟用户输入
+    user_request = {
+        'input': 'What is the weather in Beijing?',
+        'user_id': 'user123',
+        'timestamp': '2023-10-01T10:00:00Z'
+    }
+
+    # 运行Agent
+    result = agent.run(user_request)
+    print(f"Agent Response: {json.dumps(result, indent=2)}")
+```
+
+**Agent配置文件示例**：
+```yaml
+# agent_config.yaml
+agent:
+  name: "EnterpriseAssistant"
+  version: "1.0.0"
+
+  components:
+    perception:
+      modules:
+        - name: "text_parser"
+          config:
+            max_length: 1000
+            language: "en"
+
+    decision:
+      engine: "rule_based"
+      rules:
+        - condition: "contains(weather)"
+          action: "invoke_weather_skill"
+        - condition: "contains(time)"
+          action: "invoke_time_skill"
+
+    execution:
+      max_concurrent_tasks: 10
+      timeout_seconds: 30
+
+  memory:
+    short_term_capacity: 100
+    long_term_retention_days: 365
+
+  security:
+    input_validation: true
+    rate_limiting: true
+    audit_logging: true
+```
+
+这个实践案例展示了如何构建一个简单的AI Agent，包括基本的感知、决策和执行模块，以及配置文件的结构。
+
 ## 未来发展方向
 
 随着技术进步，AI Agents将变得更加强大：
