@@ -14,8 +14,10 @@
 - `themes/butterfly/`：Butterfly 主题文件
 - `public/`：构建后生成的静态网站文件（已忽略）
 - `mcp-deployment/`：MCP 内网部署相关文件
-- `blog/source/_posts/2026/01-tools/mcp-guide/`：MCP 系统指南文章
+- `blog/source/_posts/2026/01-tools/mcp-guide/`：技术实现导向的 MCP 系统指南
+- `blog/source/_posts/2026/mcp-guide/`：概念应用导向的 MCP 系统指南
 - `.mcp.json`：MCP 服务器配置文件
+- `MCP_GUIDE_ORGANIZATION.md`：MCP 指南内容组织说明
 
 ## GitHub Action 工作流
 - 监听 `master` 分支的推送事件
@@ -55,6 +57,8 @@
 ### 4. MCP 相关问题
 - 如需更新 MCP 指南内容，可使用 `tools/update-mcp-guide.sh` 脚本
 - MCP 内网部署包位于 `mcp-deployment/` 目录，包含完整的部署文档和脚本
+- MCP 指南有两个版本：技术实现导向（`blog/source/_posts/2026/01-tools/mcp-guide/`）和概念应用导向（`blog/source/_posts/2026/mcp-guide/`）
+- 更新 MCP 指南时，需注意两个版本的内容一致性，请参考 `MCP_GUIDE_ORGANIZATION.md` 了解详细组织结构
 
 ## 维护注意事项
 1. 文章写作和配置修改在 `master` 分支进行
