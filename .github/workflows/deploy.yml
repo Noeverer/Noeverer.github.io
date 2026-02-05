@@ -74,17 +74,28 @@ jobs:
             exit 1
           fi
           
-          if [ ! -f "public/index.html" ]; then
-            echo "❌ Error: index.html not found!"
+          # 检查 index.html 位置
+          if [ -f "public/index/index.html" ]; then
+            echo "✅ Found index.html in index/ directory"
+            if [ ! -f "public/index.html" ]; then
+              echo "⚠️  Warning: index.html not found at root, will be fixed in next step"
+            fi
+          elif [ -f "public/index.html" ]; then
+            echo "✅ index.html found at root"
+          else
+            echo "❌ Error: index.html not found anywhere!"
             exit 1
           fi
           
-          echo "✅ index.html exists"
-          
           # 检查是否生成了文章页面
-          if [ -f "public/index.html" ]; then
-            echo "✅ Checking for article links in index.html..."
-            if grep -q "posts/" public/index.html; then
+          INDEX_FILE="public/index.html"
+          if [ ! -f "$INDEX_FILE" ] && [ -f "public/index/index.html" ]; then
+            INDEX_FILE="public/index/index.html"
+          fi
+          
+          if [ -f "$INDEX_FILE" ]; then
+            echo "✅ Checking for article links in $INDEX_FILE..."
+            if grep -q "posts/" "$INDEX_FILE"; then
               echo "✅ Article links found in index.html"
             else
               echo "⚠️  Warning: No article links found in index.html"
@@ -105,6 +116,16 @@ jobs:
           name: hexo-build-output
           path: public/
           retention-days: 7
+
+      - name: Fix index.html location
+        run: |
+          echo "=== Fixing index.html location ==="
+          if [ -f "public/index/index.html" ] && [ ! -f "public/index.html" ]; then
+            echo "✅ Moving index.html from index/ to root"
+            cp public/index/index.html public/index.html
+          else
+            echo "❓ No index.html found in index/ directory"
+          fi
 
       - name: Deploy to GitHub Pages
         id: deployment

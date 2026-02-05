@@ -29,6 +29,11 @@ code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
   - "scripts/**/*"
+  - "**/*.py"
+  - "**/*.sh"
+  - "**/*.json"
+  - "**/.*"
+  - "db.json"
 
 # 写作
 new_post_name: :title.md
@@ -51,9 +56,8 @@ highlight:
   wrap: true
   hljs: false
 
-# 首页设置
+# 首页设置 - 禁用自定义路径，让Hexo自动生成到根目录
 index_generator:
-  path: ''
   per_page: 10
   order_by: -date
 
@@ -89,10 +93,4 @@ deploy:
   repo: https://github.com/Noeverer/Noeverer.github.io.git
   branch: gh-pages
 
-skip_render:
-  - "scripts/**/*"
-  - "**/*.py"
-  - "**/*.sh"
-  - "**/*.json"
-  - "**/.*"
-  - "db.json"
+
