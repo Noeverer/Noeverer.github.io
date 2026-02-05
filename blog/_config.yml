@@ -74,6 +74,11 @@ pagination_dir: page
 # 扩展
 theme: butterfly
 
+# 自动分类插件配置
+auto_category:
+  enable: true
+  depth: 3
+
 # 预处理配置
 ignore:
   - "../scripts/**/*"
@@ -89,3 +94,5 @@ skip_render:
   - "**/*.py"
   - "**/*.sh"
   - "**/*.json"
+  - "**/.*"
+  - "db.json"

@@ -33,6 +33,7 @@
     "@babel/helper-string-parser": "^7.27.1",
     "express": "^5.2.1",
     "hexo": "^7.3.0",
+    "hexo-auto-category": "^0.2.2",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
