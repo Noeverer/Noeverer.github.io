@@ -78,3 +78,8 @@ deploy:
   type: git
   repo: https://github.com/Noeverer/Noeverer.github.io.git
   branch: gh-pages
+
+# hexo-auto-category 配置
+auto_category:
+  enable: true
+  depth: 2
