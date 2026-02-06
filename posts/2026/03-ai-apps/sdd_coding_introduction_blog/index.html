@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="{&quot;light&quot;:{&quot;enable&quot;:true,&quot;icon&quot;:&quot;fa fa-sun&quot;,&quot;theme&quot;:&quot;light&quot;},&quot;dark&quot;:{&quot;enable&quot;:true,&quot;icon&quot;:&quot;fa fa-moon&quot;,&quot;theme&quot;:&quot;dark&quot;},&quot;auto&quot;:{&quot;enable&quot;:true,&quot;icon&quot;:&quot;fa fa-adjust&quot;}}"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SDD编程：规范驱动开发详解 | Ante Liu</title><meta name="author" content="Ante Liu"><meta name="copyright" content="Ante Liu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="SDD编程：规范驱动开发详解引言在现代软件开发中，随着项目规模的增长和业务逻辑的复杂化，如何确保代码质量、提高开发效率以及降低维护成本成为了关键挑战。规范驱动开发（Specification Driven Development，简称SDD）作为一种新兴的开发方法论，旨在通过规范先行的方式，提高软件开发的确定性和可预测性。 本文将深入探讨SDD的概念、工作流程、优势以及实践方法，帮助开发者了解并掌">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDD编程：规范驱动开发详解">
+<meta property="og:url" content="https://noeverer.github.io/posts/2026/03-ai-apps/sdd_coding_introduction_blog/index.html">
+<meta property="og:site_name" content="Ante Liu">
+<meta property="og:description" content="SDD编程：规范驱动开发详解引言在现代软件开发中，随着项目规模的增长和业务逻辑的复杂化，如何确保代码质量、提高开发效率以及降低维护成本成为了关键挑战。规范驱动开发（Specification Driven Development，简称SDD）作为一种新兴的开发方法论，旨在通过规范先行的方式，提高软件开发的确定性和可预测性。 本文将深入探讨SDD的概念、工作流程、优势以及实践方法，帮助开发者了解并掌">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://noeverer.github.io/source/img/tree.jpg">
+<meta property="article:published_time" content="2026-01-26T02:26:21.000Z">
+<meta property="article:modified_time" content="2026-02-06T09:43:38.171Z">
+<meta property="article:author" content="Ante Liu">
+<meta property="article:tag" content="SDD">
+<meta property="article:tag" content="Specification Driven Development">
+<meta property="article:tag" content="软件开发">
+<meta property="article:tag" content="规范">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noeverer.github.io/source/img/tree.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SDD编程：规范驱动开发详解",
+  "url": "https://noeverer.github.io/posts/2026/03-ai-apps/sdd_coding_introduction_blog/",
+  "image": "https://noeverer.github.io/source/img/tree.jpg",
+  "datePublished": "2026-01-26T02:26:21.000Z",
+  "dateModified": "2026-02-06T09:43:38.171Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Ante Liu",
+      "url": "https://noeverer.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://noeverer.github.io/posts/2026/03-ai-apps/sdd_coding_introduction_blog/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SDD编程：规范驱动开发详解',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Ante Liu" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/loading.gif" data-lazy-src="/source/img/tree.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-heart"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%84%9F%E6%82%9F"><i class="fa-fw /tags/感悟/"></i><span> 0</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-code"></i><span> 技术</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/%E7%BC%96%E7%A8%8B"><i class="fa-fw /tags/code/"></i><span> 0</span></a></li><li><a class="site-page child" href="/Python"><i class="fa-fw /tags/python/"></i><span> 1</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 学习</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><i class="fa-fw /tags/study/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE"><i class="fa-fw /tags/mindmap/"></i><span> 1</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-address-card"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(20deg,;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Ante Liu</span></a><a class="nav-page-title" href="/"><span class="site-name">SDD编程：规范驱动开发详解</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-heart"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/%E6%84%9F%E6%82%9F"><i class="fa-fw /tags/感悟/"></i><span> 0</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-code"></i><span> 技术</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/%E7%BC%96%E7%A8%8B"><i class="fa-fw /tags/code/"></i><span> 0</span></a></li><li><a class="site-page child" href="/Python"><i class="fa-fw /tags/python/"></i><span> 1</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 学习</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><i class="fa-fw /tags/study/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE"><i class="fa-fw /tags/mindmap/"></i><span> 1</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-address-card"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">SDD编程：规范驱动开发详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-26T02:26:21.000Z" title="发表于 2026-01-26 10:26:21">2026-01-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-02-06T09:43:38.171Z" title="更新于 2026-02-06 17:43:38">2026-02-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E6%96%B9%E6%B3%95%E8%AE%BA/">开发方法论</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="SDD编程：规范驱动开发详解"><a href="#SDD编程：规范驱动开发详解" class="headerlink" title="SDD编程：规范驱动开发详解"></a>SDD编程：规范驱动开发详解</h1><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在现代软件开发中，随着项目规模的增长和业务逻辑的复杂化，如何确保代码质量、提高开发效率以及降低维护成本成为了关键挑战。规范驱动开发（Specification Driven Development，简称SDD）作为一种新兴的开发方法论，旨在通过规范先行的方式，提高软件开发的确定性和可预测性。</p>
+<p>本文将深入探讨SDD的概念、工作流程、优势以及实践方法，帮助开发者了解并掌握这一高效的开发方式。</p>
+<span id="more"></span>
+
+<h2 id="什么是SDD（规范驱动开发）？"><a href="#什么是SDD（规范驱动开发）？" class="headerlink" title="什么是SDD（规范驱动开发）？"></a>什么是SDD（规范驱动开发）？</h2><p>SDD（Specification Driven Development）是一种以规范为核心的软件开发方法论。它强调在编写任何功能性代码之前，先明确地定义和描述系统的行为和功能需求。SDD的核心思想是通过形式化的规范来驱动整个开发过程，确保最终的实现完全符合预期。</p>
+<h3 id="SDD与TDD、BDD的区别"><a href="#SDD与TDD、BDD的区别" class="headerlink" title="SDD与TDD、BDD的区别"></a>SDD与TDD、BDD的区别</h3><p>虽然SDD与TDD（测试驱动开发）和BDD（行为驱动开发）有相似之处，但它们在理念和实践上存在明显区别：</p>
+<ul>
+<li><strong>TDD（Test Driven Development）</strong>：通过编写测试用例来驱动代码实现，强调”红-绿-重构”的循环。</li>
+<li><strong>BDD（Behavior Driven Development）</strong>：关注系统的业务行为，使用自然语言描述功能需求，促进团队沟通。</li>
+<li><strong>SDD（Specification Driven Development）</strong>：强调先建立完整的功能规范，再进行实现，注重系统性、全面性的需求覆盖。</li>
+</ul>
+<h2 id="SDD的核心原则"><a href="#SDD的核心原则" class="headerlink" title="SDD的核心原则"></a>SDD的核心原则</h2><h3 id="1-规范先行"><a href="#1-规范先行" class="headerlink" title="1. 规范先行"></a>1. 规范先行</h3><p>在SDD中，规范是开发过程的核心驱动力。开发人员需要在编写任何功能性代码之前，首先定义清晰、无歧义的规范。</p>
+<h3 id="2-完整性保证"><a href="#2-完整性保证" class="headerlink" title="2. 完整性保证"></a>2. 完整性保证</h3><p>SDD要求规范覆盖系统的所有功能和边界情况，确保实现的完整性。</p>
+<h3 id="3-可验证性"><a href="#3-可验证性" class="headerlink" title="3. 可验证性"></a>3. 可验证性</h3><p>规范应该是可验证的，每一条规范都应该有对应的验证方法。</p>
+<h3 id="4-渐进式细化"><a href="#4-渐进式细化" class="headerlink" title="4. 渐进式细化"></a>4. 渐进式细化</h3><p>规范不是一蹴而就的，而是通过迭代逐步细化和完善。</p>
+<h2 id="SDD的工作流程"><a href="#SDD的工作流程" class="headerlink" title="SDD的工作流程"></a>SDD的工作流程</h2><p>SDD的工作流程可以概括为以下几个阶段：</p>
+<div align="center">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[规范定义阶段] --&gt; B[规范验证阶段]</span><br><span class="line">    B --&gt; C[实现阶段]</span><br><span class="line">    C --&gt; D[验证与测试阶段]</span><br><span class="line">    D --&gt; E[维护与演进阶段]</span><br><span class="line">    E --&gt; F&#123;是否需要更新规范?&#125;</span><br><span class="line">    F --&gt;|是| A</span><br><span class="line">    F --&gt;|否| G[结束]</span><br><span class="line">    </span><br><span class="line">    style A fill:#e1f5fe</span><br><span class="line">    style C fill:#e8f5e8</span><br><span class="line">    style D fill:#fff3e0</span><br><span class="line">    style E fill:#f3e5f5</span><br></pre></td></tr></table></figure>
+
+</div>
+
+<h3 id="1-规范定义阶段"><a href="#1-规范定义阶段" class="headerlink" title="1. 规范定义阶段"></a>1. 规范定义阶段</h3><p>在这个阶段，开发团队与产品负责人、业务专家一起定义系统的功能规范。规范通常包括：</p>
+<ul>
+<li>功能需求描述</li>
+<li>输入输出定义</li>
+<li>边界条件</li>
+<li>错误处理策略</li>
+<li>性能要求</li>
+</ul>
+<h3 id="2-规范验证阶段"><a href="#2-规范验证阶段" class="headerlink" title="2. 规范验证阶段"></a>2. 规范验证阶段</h3><p>在正式开发之前，需要对规范进行验证，确保：</p>
+<ul>
+<li>规范的完整性</li>
+<li>规范的一致性</li>
+<li>规范的可实现性</li>
+<li>团队对规范的理解一致性</li>
+</ul>
+<h3 id="3-实现阶段"><a href="#3-实现阶段" class="headerlink" title="3. 实现阶段"></a>3. 实现阶段</h3><p>基于验证过的规范进行编码实现。实现过程中需要不断对照规范，确保代码与规范的一致性。</p>
+<h3 id="4-验证与测试阶段"><a href="#4-验证与测试阶段" class="headerlink" title="4. 验证与测试阶段"></a>4. 验证与测试阶段</h3><p>验证实现是否完全符合规范，包括：</p>
+<ul>
+<li>功能验证</li>
+<li>性能测试</li>
+<li>边界条件测试</li>
+<li>错误处理验证</li>
+</ul>
+<h3 id="5-维护与演进阶段"><a href="#5-维护与演进阶段" class="headerlink" title="5. 维护与演进阶段"></a>5. 维护与演进阶段</h3><p>在系统运行过程中，根据新的需求或反馈，更新规范并相应调整实现。</p>
+<h2 id="SDD的优势"><a href="#SDD的优势" class="headerlink" title="SDD的优势"></a>SDD的优势</h2><h3 id="1-提高开发效率"><a href="#1-提高开发效率" class="headerlink" title="1. 提高开发效率"></a>1. 提高开发效率</h3><p>通过预先定义清晰的规范，开发人员可以更专注于实现细节，减少需求变更带来的返工。</p>
+<h3 id="2-改善团队沟通"><a href="#2-改善团队沟通" class="headerlink" title="2. 改善团队沟通"></a>2. 改善团队沟通</h3><p>规范作为共同的语言，有助于不同角色之间的沟通和理解，减少误解。</p>
+<h3 id="3-增强代码质量"><a href="#3-增强代码质量" class="headerlink" title="3. 增强代码质量"></a>3. 增强代码质量</h3><p>规范驱动的开发方式有助于编写更健壮、更可靠的代码，减少缺陷。</p>
+<h3 id="4-便于维护和扩展"><a href="#4-便于维护和扩展" class="headerlink" title="4. 便于维护和扩展"></a>4. 便于维护和扩展</h3><p>清晰的规范使后续的维护和扩展工作更加容易，新加入的团队成员也能更快上手。</p>
+<h2 id="SDD的实际应用示例"><a href="#SDD的实际应用示例" class="headerlink" title="SDD的实际应用示例"></a>SDD的实际应用示例</h2><p>让我们通过一个简单的示例来说明SDD的应用。假设我们要开发一个计算器的加法功能：</p>
+<h3 id="规范定义"><a href="#规范定义" class="headerlink" title="规范定义"></a>规范定义</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">### Requirement: Addition Operation</span><br><span class="line">The calculator SHALL perform addition of two numbers correctly.</span><br><span class="line"></span><br><span class="line">#### Scenario: Normal Addition</span><br><span class="line">- **WHEN** user inputs two positive integers (e.g., 3 and 5)</span><br><span class="line">- **THEN** the calculator returns their sum (8)</span><br><span class="line"></span><br><span class="line">#### Scenario: Negative Numbers</span><br><span class="line">- **WHEN** user inputs one or two negative numbers (e.g., -3 and 5)</span><br><span class="line">- **THEN** the calculator returns the correct result (-3 + 5 = 2)</span><br><span class="line"></span><br><span class="line">#### Scenario: Zero Values</span><br><span class="line">- **WHEN** user inputs zero with any number (e.g., 0 and 7)</span><br><span class="line">- **THEN** the calculator returns the other number (7)</span><br><span class="line"></span><br><span class="line">#### Scenario: Large Numbers</span><br><span class="line">- **WHEN** user inputs large numbers (e.g., 999999999 and 1)</span><br><span class="line">- **THEN** the calculator handles the calculation without overflow</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><p>基于上述规范，我们可以实现加法功能：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Perform addition of two numbers according to specification</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># Validate input types</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(a, (<span class="built_in">int</span>, <span class="built_in">float</span>)) <span class="keyword">or</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(b, (<span class="built_in">int</span>, <span class="built_in">float</span>)):</span><br><span class="line">        <span class="keyword">raise</span> TypeError(<span class="string">&quot;Arguments must be numbers&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Perform addition</span></span><br><span class="line">    result = a + b</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Return result</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="comment"># Test against specification</span></span><br><span class="line"><span class="keyword">assert</span> add(<span class="number">3</span>, <span class="number">5</span>) == <span class="number">8</span></span><br><span class="line"><span class="keyword">assert</span> add(-<span class="number">3</span>, <span class="number">5</span>) == <span class="number">2</span></span><br><span class="line"><span class="keyword">assert</span> add(<span class="number">0</span>, <span class="number">7</span>) == <span class="number">7</span></span><br><span class="line"><span class="keyword">assert</span> add(<span class="number">999999999</span>, <span class="number">1</span>) == <span class="number">1000000000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="SDD的最佳实践"><a href="#SDD的最佳实践" class="headerlink" title="SDD的最佳实践"></a>SDD的最佳实践</h2><h3 id="1-使用结构化规范语言"><a href="#1-使用结构化规范语言" class="headerlink" title="1. 使用结构化规范语言"></a>1. 使用结构化规范语言</h3><p>采用结构化的语言和格式来编写规范，如Gherkin语法或类似OpenSpec的格式，确保规范的清晰和可解析性。</p>
+<h3 id="2-版本控制规范文档"><a href="#2-版本控制规范文档" class="headerlink" title="2. 版本控制规范文档"></a>2. 版本控制规范文档</h3><p>将规范文档纳入版本控制系统，与代码同步更新，保持一致性。</p>
+<h3 id="3-自动化验证"><a href="#3-自动化验证" class="headerlink" title="3. 自动化验证"></a>3. 自动化验证</h3><p>尽可能使用自动化工具验证实现与规范的一致性，减少人工验证的工作量。</p>
+<h3 id="4-定期回顾和更新"><a href="#4-定期回顾和更新" class="headerlink" title="4. 定期回顾和更新"></a>4. 定期回顾和更新</h3><p>定期回顾规范的有效性，根据实际使用情况和反馈进行更新。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>SDD（规范驱动开发）作为一种系统性的开发方法论，通过规范先行的方式提高了软件开发的可控性和可预测性。尽管SDD在初期可能需要更多的准备工作，但从长远来看，它能够显著提高开发效率、改善代码质量和团队协作效果。</p>
+<p>对于追求高质量软件开发的团队来说，SDD是一个值得探索和实践的方法论。通过合理应用SDD的原则和实践，我们可以构建更加可靠、可维护的软件系统。</p>
+<p>如果你正在寻找提高开发质量的方法，不妨尝试将SDD融入到你的开发流程中，相信你会收获意想不到的效果。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://noeverer.github.io">Ante Liu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://noeverer.github.io/posts/2026/03-ai-apps/sdd_coding_introduction_blog/">https://noeverer.github.io/posts/2026/03-ai-apps/sdd_coding_introduction_blog/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://noeverer.github.io" target="_blank">Ante Liu</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SDD/">SDD</a><a class="post-meta__tags" href="/tags/Specification-Driven-Development/">Specification Driven Development</a><a class="post-meta__tags" href="/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/">软件开发</a><a class="post-meta__tags" href="/tags/%E8%A7%84%E8%8C%83/">规范</a></div><div class="post-share"><div class="social-share" data-image="/source/img/tree.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/posts/2026/2026-01-28/" title="日志"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">日志</div></div></div></a><a class="pagination-related" href="/posts/2026/03-ai-apps/openspec_introduction_blog/" title="OpenSpec：规范驱动开发的现代化解决方案"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">OpenSpec：规范驱动开发的现代化解决方案</div></div><div class="info-2"><div class="info-item-1">OpenSpec：规范驱动开发的现代化解决方案引言在现代软件开发过程中，随着项目规模的增长和团队协作的复杂性增加，如何有效地管理需求变更、确保代码质量和维护系统文档成为了一个重要挑战。OpenSpec是一种规范驱动开发（spec-driven development）的解决方案，它通过结构化的方式组织项目的需求、变更和实现，帮助团队保持代码与文档的一致性。 本文将详细介绍OpenSpec的概念、工作流程以及如何入门使用这一工具。 什么是OpenSpec？OpenSpec是一个用于规范驱动开发的方法论和工具集，它提供了一套完整的流程来管理软件项目中的变更。核心思想是将项目的当前状态（specs）与待实现的变更（changes）分开管理，从而确保开发过程的透明性和可追踪性。 核心概念OpenSpec的核心概念包括：  specs&#x2F; - 存放当前已实现功能的规范，代表系统的当前真实状态 changes&#x2F; - 存放待实现的变更提案，代表系统将来的变化 archive&#x2F; - 存放已完成的变更，形成历史记录  这种设计使得团队能够清晰地了解系统当前的功能、正在开...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/2026/03-ai-apps/openspec_introduction_blog/" title="OpenSpec：规范驱动开发的现代化解决方案"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-26</div><div class="info-item-2">OpenSpec：规范驱动开发的现代化解决方案</div></div><div class="info-2"><div class="info-item-1">OpenSpec：规范驱动开发的现代化解决方案引言在现代软件开发过程中，随着项目规模的增长和团队协作的复杂性增加，如何有效地管理需求变更、确保代码质量和维护系统文档成为了一个重要挑战。OpenSpec是一种规范驱动开发（spec-driven development）的解决方案，它通过结构化的方式组织项目的需求、变更和实现，帮助团队保持代码与文档的一致性。 本文将详细介绍OpenSpec的概念、工作流程以及如何入门使用这一工具。 什么是OpenSpec？OpenSpec是一个用于规范驱动开发的方法论和工具集，它提供了一套完整的流程来管理软件项目中的变更。核心思想是将项目的当前状态（specs）与待实现的变更（changes）分开管理，从而确保开发过程的透明性和可追踪性。 核心概念OpenSpec的核心概念包括：  specs&#x2F; - 存放当前已实现功能的规范，代表系统的当前真实状态 changes&#x2F; - 存放待实现的变更提案，代表系统将来的变化 archive&#x2F; - 存放已完成的变更，形成历史记录  这种设计使得团队能够清晰地了解系统当前的功能、正在开...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/loading.gif" data-lazy-src="/source/img/tree.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Ante Liu</div><div class="author-info-description">生活不止眼前的苟且，还有诗和远方</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Noeverer"><i class="fab fa-github"></i><span>Github</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Noeverer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:robotliu0327@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SDD%E7%BC%96%E7%A8%8B%EF%BC%9A%E8%A7%84%E8%8C%83%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">SDD编程：规范驱动开发详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSDD%EF%BC%88%E8%A7%84%E8%8C%83%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%EF%BC%89%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">什么是SDD（规范驱动开发）？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SDD%E4%B8%8ETDD%E3%80%81BDD%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.2.1.</span> <span class="toc-text">SDD与TDD、BDD的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDD%E7%9A%84%E6%A0%B8%E5%BF%83%E5%8E%9F%E5%88%99"><span class="toc-number">1.3.</span> <span class="toc-text">SDD的核心原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%A7%84%E8%8C%83%E5%85%88%E8%A1%8C"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 规范先行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%8C%E6%95%B4%E6%80%A7%E4%BF%9D%E8%AF%81"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 完整性保证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8F%AF%E9%AA%8C%E8%AF%81%E6%80%A7"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 可验证性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BB%86%E5%8C%96"><span class="toc-number">1.3.4.</span> <span class="toc-text">4. 渐进式细化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDD%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.4.</span> <span class="toc-text">SDD的工作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%A7%84%E8%8C%83%E5%AE%9A%E4%B9%89%E9%98%B6%E6%AE%B5"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 规范定义阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%A7%84%E8%8C%83%E9%AA%8C%E8%AF%81%E9%98%B6%E6%AE%B5"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 规范验证阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%9E%E7%8E%B0%E9%98%B6%E6%AE%B5"><span class="toc-number">1.4.3.</span> <span class="toc-text">3. 实现阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%AA%8C%E8%AF%81%E4%B8%8E%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="toc-number">1.4.4.</span> <span class="toc-text">4. 验证与测试阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%BB%B4%E6%8A%A4%E4%B8%8E%E6%BC%94%E8%BF%9B%E9%98%B6%E6%AE%B5"><span class="toc-number">1.4.5.</span> <span class="toc-text">5. 维护与演进阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDD%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-number">1.5.</span> <span class="toc-text">SDD的优势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87"><span class="toc-number">1.5.1.</span> <span class="toc-text">1. 提高开发效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%94%B9%E5%96%84%E5%9B%A2%E9%98%9F%E6%B2%9F%E9%80%9A"><span class="toc-number">1.5.2.</span> <span class="toc-text">2. 改善团队沟通</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A2%9E%E5%BC%BA%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F"><span class="toc-number">1.5.3.</span> <span class="toc-text">3. 增强代码质量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BE%BF%E4%BA%8E%E7%BB%B4%E6%8A%A4%E5%92%8C%E6%89%A9%E5%B1%95"><span class="toc-number">1.5.4.</span> <span class="toc-text">4. 便于维护和扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDD%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.6.</span> <span class="toc-text">SDD的实际应用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E8%8C%83%E5%AE%9A%E4%B9%89"><span class="toc-number">1.6.1.</span> <span class="toc-text">规范定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81"><span class="toc-number">1.6.2.</span> <span class="toc-text">实现代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDD%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.7.</span> <span class="toc-text">SDD的最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E5%8C%96%E8%A7%84%E8%8C%83%E8%AF%AD%E8%A8%80"><span class="toc-number">1.7.1.</span> <span class="toc-text">1. 使用结构化规范语言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E8%A7%84%E8%8C%83%E6%96%87%E6%A1%A3"><span class="toc-number">1.7.2.</span> <span class="toc-text">2. 版本控制规范文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%AA%8C%E8%AF%81"><span class="toc-number">1.7.3.</span> <span class="toc-text">3. 自动化验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%9A%E6%9C%9F%E5%9B%9E%E9%A1%BE%E5%92%8C%E6%9B%B4%E6%96%B0"><span class="toc-number">1.7.4.</span> <span class="toc-text">4. 定期回顾和更新</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.8.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2026/01-tools/05-obsidian/" title="无标题">无标题</a><time datetime="2026-02-06T09:43:38.171Z" title="发表于 2026-02-06 17:43:38">2026-02-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2026/01-tools/03-obsidian%E5%90%8C%E6%AD%A5github%20action/" title="工具整理">工具整理</a><time datetime="2026-01-28T04:00:00.000Z" title="发表于 2026-01-28 12:00:00">2026-01-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2026/2026-01-28/" title="日志">日志</a><time datetime="2026-01-27T16:00:00.000Z" title="发表于 2026-01-28 00:00:00">2026-01-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2026/03-ai-apps/openspec_introduction_blog/" title="OpenSpec：规范驱动开发的现代化解决方案">OpenSpec：规范驱动开发的现代化解决方案</a><time datetime="2026-01-26T02:26:21.000Z" title="发表于 2026-01-26 10:26:21">2026-01-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2026/03-ai-apps/sdd_coding_introduction_blog/" title="SDD编程：规范驱动开发详解">SDD编程：规范驱动开发详解</a><time datetime="2026-01-26T02:26:21.000Z" title="发表于 2026-01-26 10:26:21">2026-01-26</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2015 - 2026 By Ante Liu</span></div><div class="footer_custom_text">Thank you for visiting my blog</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
