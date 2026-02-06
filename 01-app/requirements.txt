@@ -1,0 +1,53 @@
+# 基础依赖
+flask==2.3.3
+gunicorn==21.2.0
+eventlet==0.33.3
+gevent==23.9.1
+requests==2.31.0
+numpy==1.24.3
+pillow==10.0.0
+opencv-python==4.8.0.76
+
+# 深度学习框架（CPU版本，NPU版本需要从华为仓库安装）
+# PyTorch NPU版本（需要通过特定渠道安装）
+# torch==2.0.1
+# torchvision==0.15.2
+# torch-npu==2.0.1
+
+# TensorFlow NPU版本
+# tensorflow==2.13.0
+# tf2onnx==1.15.1
+
+# 其他ML库
+scikit-learn==1.3.0
+scipy==1.11.2
+matplotlib==3.7.2
+tqdm==4.66.1
+
+# NLP相关
+transformers==4.30.2
+tokenizers==0.13.3
+sentencepiece==0.1.99
+sacremoses==0.0.53
+
+# OCR相关
+pytesseract==0.3.10
+easyocr==1.7.0
+paddlepaddle==2.5.1
+paddleocr==2.7.0.3
+
+# 数据处理和可视化
+pandas==2.0.3
+datasets==2.14.4
+tensorboard==2.13.0
+wandb==0.15.8
+
+# 模型优化和推理
+onnx==1.14.1
+onnxruntime==1.15.1
+
+# 并发和性能
+uvloop==0.17.0
+httptools==0.6.0
+uvicorn==0.23.2
+fastapi==0.103.1
