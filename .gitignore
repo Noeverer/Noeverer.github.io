@@ -80,3 +80,41 @@ tools/wikijs-syn/wikijs-deploy/wikijs-*.tar*
 # Backup files
 *.bak
 *.backup
+
+# Temporary and working directories
+blog/
+book-output/
+mcp-deployment/
+specs/
+tools/
+zh/
+resources/
+scripts.bak/
+scripts_tools_backup/
+*.tar.gz
+*.zip
+
+# MCP and AI tools temporary files
+.amazonq/
+.codebuddy/
+.lean-spec/
+.obsidian/
+.qwen/
+
+# Docker exports
+01-app/docker-export-*/
+
+# Development and deployment scripts (keep only essential)
+archive_changes.sh
+deploy.sh
+post_build_script.sh
+requirements.txt
+requirements-prod.txt
+main.py
+index.js
+db.json
+
+# Documentation (keep only essential docs)
+BRANCH_INFO.md
+HANDOVER.md
+MCP-DEPLOYMENT.md
