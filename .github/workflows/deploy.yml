@@ -39,11 +39,26 @@ jobs:
 
       - name: Install dependencies
         run: |
+          cd blog
           npm install hexo-cli -g
           npm ci --production=false
+          # Remove problematic hexo-auto-category plugin that causes article recognition issues
+          npm uninstall hexo-auto-category || echo "Plugin not installed"
+          echo "=== Checking node_modules ==="
+          ls node_modules/ | grep hexo | head -10
+      - name: Verify articles recognition
+        run: |
+          cd blog
+          echo "=== Checking posts directory ==="
+          ls -la source/_posts/ || echo "Posts directory not found"
+          echo "=== Checking Hexo posts ==="
+          hexo list post || echo "No posts found"
+          echo "=== Testing article generation ==="
+          hexo generate
 
       - name: Verify theme installation
         run: |
+          cd blog
           echo "Checking theme installation..."
           if [ ! -d "node_modules/hexo-theme-butterfly" ]; then
             echo "❌ Error: hexo-theme-butterfly not found!"
@@ -53,59 +68,67 @@ jobs:
 
       - name: Clean cache
         run: |
+          cd blog
           echo "Cleaning Hexo cache..."
           hexo clean || true
 
       - name: Generate static files
         run: |
-          echo "Generating static files..."
+          cd blog
+          echo "=== Generating static files ==="
+          echo "Working directory: $(pwd)"
+          echo "Posts directory:"
+          ls -la source/_posts/ | head -10
+          echo "=== Checking Hexo posts ==="
+          hexo list post
+          echo "=== Cleaning and generating ==="
+          hexo clean
           hexo generate
           echo "✅ Generation completed"
 
       - name: Verify build output
         run: |
+          cd blog
           echo "=== Build Verification ==="
+          echo "Working directory: $(pwd)"
           echo "Public directory contents:"
-          ls -la public/
+          ls -la public/ || echo "No public directory found"
           echo ""
-          
+
           if [ ! -d "public" ]; then
             echo "❌ Error: public directory not found!"
             exit 1
           fi
-          
+
           # 检查 index.html 位置
           if [ -f "public/index/index.html" ]; then
             echo "✅ Found index.html in index/ directory"
-            if [ ! -f "public/index.html" ]; then
-              echo "⚠️  Warning: index.html not found at root, will be fixed in next step"
-            fi
+            # 复制到根目录满足部署要求
+            cp public/index/index.html public/index.html
+            echo "✅ Copied index.html to root directory"
           elif [ -f "public/index.html" ]; then
-            echo "✅ index.html found at root"
+            echo "✅ index.html already found at root"
           else
             echo "❌ Error: index.html not found anywhere!"
             exit 1
           fi
-          
-          # 检查是否生成了文章页面
-          INDEX_FILE="public/index.html"
-          if [ ! -f "$INDEX_FILE" ] && [ -f "public/index/index.html" ]; then
-            INDEX_FILE="public/index/index.html"
-          fi
-          
-          if [ -f "$INDEX_FILE" ]; then
-            echo "✅ Checking for article links in $INDEX_FILE..."
-            if grep -q "posts/" "$INDEX_FILE"; then
-              echo "✅ Article links found in index.html"
+
+          # 检查首页标题是否正确
+          if [ -f "public/index.html" ]; then
+            TITLE=$(grep -o '<title>[^<]*</title>' public/index.html | head -1)
+            echo "📄 Homepage title: $TITLE"
+
+            if echo "$TITLE" | grep -q "index\|Index"; then
+              echo "⚠️  Warning: Homepage shows 'index' instead of article list"
             else
-              echo "⚠️  Warning: No article links found in index.html"
+              echo "✅ Homepage title looks correct"
             fi
           fi
-          
+
           # 统计生成的文件数量
           FILE_COUNT=$(find public -type f | wc -l)
           echo "📊 Total files generated: $FILE_COUNT"
-          
+
           if [ "$FILE_COUNT" -lt 10 ]; then
             echo "⚠️  Warning: Generated file count seems low ($FILE_COUNT files)"
           fi
@@ -114,11 +137,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: hexo-build-output
-          path: public/
+          path: blog/public/
           retention-days: 7
 
       - name: Fix index.html location
         run: |
+          cd blog
           echo "=== Fixing index.html location ==="
           if [ -f "public/index/index.html" ] && [ ! -f "public/index.html" ]; then
             echo "✅ Moving index.html from index/ to root"
@@ -132,7 +156,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./blog/public
           publish_branch: gh-pages
           force_orphan: true
           user_name: 'github-actions[bot]'

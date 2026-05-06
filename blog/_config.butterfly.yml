@@ -57,13 +57,13 @@ font:
 
 # 图片
 avatar:
-  img: https://source.unsplash.com/random/200x200/?portrait
+  img: ./source/img/tree.jpg
   effect: false
 
 # 顶部图
 disable_top_img: false
-default_top_img: /img/index_top_img.jpg
-index_img: /img/index_top_img.jpg
+default_top_img: ./source/img/index_top_img.jpg
+index_img: ./source/img/index_top_img.jpg
 index_site_info_top: null
 
 # 文章元数据
