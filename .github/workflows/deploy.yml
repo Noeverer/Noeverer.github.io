@@ -4,11 +4,6 @@ on:
   push:
     branches: [ master ]
   workflow_dispatch:
-    inputs:
-      manual_trigger:
-        description: 'Manual deployment trigger'
-        required: false
-        default: 'manual'
 
 # 设置 GitHub Pages 权限
 permissions:
@@ -23,133 +18,41 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          submodules: recursive
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
-
-      - name: Display environment info
-        run: |
-          echo "Node version: $(node --version)"
-          echo "NPM version: $(npm --version)"
-          echo "Working directory: $(pwd)"
 
       - name: Install dependencies
         run: |
           cd blog
-          npm ci
-          echo "=== Checking node_modules ==="
-          ls node_modules/ | grep hexo | head -10
-      - name: Verify articles recognition
-        run: |
-          cd blog
-          echo "=== Checking posts directory ==="
-          ls -la source/_posts/ || echo "Posts directory not found"
-          echo "=== Checking Hexo posts ==="
-          npx hexo list post || echo "No posts found"
-          echo "=== Testing article generation ==="
-          npx hexo generate
-
-      - name: Verify theme installation
-        run: |
-          cd blog
-          echo "Checking theme installation..."
-          if [ ! -d "node_modules/hexo-theme-butterfly" ]; then
-            echo "❌ Error: hexo-theme-butterfly not found!"
-            exit 1
-          fi
-          echo "✅ Theme installed successfully"
-
-      - name: Clean cache
-        run: |
-          cd blog
-          echo "Cleaning Hexo cache..."
-          npx hexo clean || true
+          npm install
+          echo "=== Installed packages ==="
+          npm list --depth=0
 
       - name: Generate static files
         run: |
           cd blog
-          echo "=== Generating static files ==="
-          echo "Working directory: $(pwd)"
-          echo "Posts directory:"
-          ls -la source/_posts/ | head -10
-          echo "=== Checking Hexo posts ==="
-          npx hexo list post
-          echo "=== Cleaning and generating ==="
+          echo "=== Hexo version ==="
+          npx hexo version
+          echo "=== Cleaning ==="
           npx hexo clean
+          echo "=== Generating ==="
           npx hexo generate
           echo "✅ Generation completed"
 
       - name: Verify build output
         run: |
           cd blog
-          echo "=== Build Verification ==="
-          echo "Working directory: $(pwd)"
-          echo "Public directory contents:"
-          ls -la public/ || echo "No public directory found"
-          echo ""
-
-          if [ ! -d "public" ]; then
-            echo "❌ Error: public directory not found!"
-            exit 1
-          fi
-
-          # 检查 index.html 位置
-          if [ -f "public/index/index.html" ]; then
-            echo "✅ Found index.html in index/ directory"
-            # 复制到根目录满足部署要求
-            cp public/index/index.html public/index.html
-            echo "✅ Copied index.html to root directory"
-          elif [ -f "public/index.html" ]; then
-            echo "✅ index.html already found at root"
-          else
-            echo "❌ Error: index.html not found anywhere!"
-            exit 1
-          fi
-
-          # 检查首页标题是否正确
-          if [ -f "public/index.html" ]; then
-            TITLE=$(grep -o '<title>[^<]*</title>' public/index.html | head -1)
-            echo "📄 Homepage title: $TITLE"
-
-            if echo "$TITLE" | grep -q "index\|Index"; then
-              echo "⚠️  Warning: Homepage shows 'index' instead of article list"
-            else
-              echo "✅ Homepage title looks correct"
-            fi
-          fi
-
-          # 统计生成的文件数量
+          echo "=== Checking public directory ==="
+          ls -la public/ || (echo "❌ public directory not found!" && exit 1)
+          echo "=== Checking index.html ==="
+          ls -la public/index.html public/index/index.html 2>/dev/null || echo "Checking for index files..."
           FILE_COUNT=$(find public -type f | wc -l)
           echo "📊 Total files generated: $FILE_COUNT"
 
-          if [ "$FILE_COUNT" -lt 10 ]; then
-            echo "⚠️  Warning: Generated file count seems low ($FILE_COUNT files)"
-          fi
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: hexo-build-output
-          path: blog/public/
-          retention-days: 7
-
-      - name: Fix index.html location
-        run: |
-          cd blog
-          echo "=== Fixing index.html location ==="
-          if [ -f "public/index/index.html" ] && [ ! -f "public/index.html" ]; then
-            echo "✅ Moving index.html from index/ to root"
-            cp public/index/index.html public/index.html
-          else
-            echo "❓ No index.html found in index/ directory"
-          fi
-
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -159,23 +62,3 @@ jobs:
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: 'Deploy Hexo blog - ${{ github.event.head_commit.message }}'
-          force: true
-
-      - name: Deployment summary
-        if: success()
-        run: |
-          echo "=== 🎉 Deployment Summary ==="
-          echo "✅ Build successful!"
-          echo "✅ Deployment to gh-pages completed!"
-          echo "🌐 Blog URL: https://noeverer.github.io"
-          echo "📅 Deployment time: $(date)"
-          echo "👤 Triggered by: ${{ github.actor }}"
-          echo "📝 Commit: ${{ github.sha }}"
-
-      - name: Deployment failure notification
-        if: failure()
-        run: |
-          echo "=== ❌ Deployment Failed ==="
-          echo "❌ Deployment to gh-pages failed!"
-          echo "Please check the logs above for details."
-          echo "GitHub Actions URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
