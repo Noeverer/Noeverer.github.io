@@ -40,10 +40,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd blog
-          npm install hexo-cli -g
-          npm ci --production=false
-          # Remove problematic hexo-auto-category plugin that causes article recognition issues
-          npm uninstall hexo-auto-category || echo "Plugin not installed"
+          npm ci
           echo "=== Checking node_modules ==="
           ls node_modules/ | grep hexo | head -10
       - name: Verify articles recognition
@@ -52,9 +49,9 @@ jobs:
           echo "=== Checking posts directory ==="
           ls -la source/_posts/ || echo "Posts directory not found"
           echo "=== Checking Hexo posts ==="
-          hexo list post || echo "No posts found"
+          npx hexo list post || echo "No posts found"
           echo "=== Testing article generation ==="
-          hexo generate
+          npx hexo generate
 
       - name: Verify theme installation
         run: |
@@ -70,7 +67,7 @@ jobs:
         run: |
           cd blog
           echo "Cleaning Hexo cache..."
-          hexo clean || true
+          npx hexo clean || true
 
       - name: Generate static files
         run: |
@@ -80,10 +77,10 @@ jobs:
           echo "Posts directory:"
           ls -la source/_posts/ | head -10
           echo "=== Checking Hexo posts ==="
-          hexo list post
+          npx hexo list post
           echo "=== Cleaning and generating ==="
-          hexo clean
-          hexo generate
+          npx hexo clean
+          npx hexo generate
           echo "✅ Generation completed"
 
       - name: Verify build output
