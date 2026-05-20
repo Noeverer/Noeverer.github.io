@@ -42,16 +42,6 @@ jobs:
           npx hexo generate
           echo "✅ Generation completed"
 
-      - name: Verify build output
-        run: |
-          cd blog
-          echo "=== Checking public directory ==="
-          ls -la public/ || (echo "❌ public directory not found!" && exit 1)
-          echo "=== Checking index.html ==="
-          ls -la public/index.html public/index/index.html 2>/dev/null || echo "Checking for index files..."
-          FILE_COUNT=$(find public -type f | wc -l)
-          echo "📊 Total files generated: $FILE_COUNT"
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
